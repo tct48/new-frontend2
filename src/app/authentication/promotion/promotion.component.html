@@ -1,0 +1,180 @@
+<app-auth-content>
+  <!-- โปรโมชั่นราคา -->
+  <div class="card mt-3">
+    <div class="card-header ">
+        <h3 class="mb-0" style="font-weight: bolder;">
+          โปรโมชั่นราคา
+        </h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead class="text-center">
+          <tr>
+            <th rowspan="2" scope="col">รายการ</th>
+            <th colspan="3" scope="col">ประเภทรถ</th>
+          </tr>
+          <tr>
+            <th scope="col">รถเก๋ง</th>
+            <th scope="col">กระบะ</th>
+            <th scope="col">มอเตอร์ไซค์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="vertical-align: middle;">ตรวจสภาพรถ</td>
+            <td>
+              <input type="number" value="200" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="200" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="60" class="form-control" aria-describedby="emailHelp">
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">พรบ</td>
+            <td>
+              <input type="number" value="645" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="960" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="1180" class="form-control" aria-describedby="emailHelp">
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">แก๊ส Gas</td>
+            <td>
+              <input type="number" value="500" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="0" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="0" class="form-control" aria-describedby="emailHelp">
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ภาษี</td>
+            <td>
+              <input type="number" value="0" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="0" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="0" class="form-control" aria-describedby="emailHelp">
+            </td>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle;">ฝากต่อ</td>
+            <td>
+              <input type="number" value="50" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="50" class="form-control" aria-describedby="emailHelp">
+            </td>
+            <td>
+              <input type="number" value="50" class="form-control" aria-describedby="emailHelp">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <button type="button" (click)="onSubmit()" class="btn btn-success btn-lg btn-block">บันทึกการตั้งค่า</button>
+    </div>
+  </div>
+
+  <!-- ตั้งค่าส่วนลด -->
+  <div class="card my-3">
+    <div class="card-header">
+      <h3 class="mb-0" style="font-weight: bolder;">
+        ตั้งค่าส่วนลด
+      </h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead class="text-center">
+          <tr>
+            <th>ซีซี (CC)</th>
+            <th>ส่วนลด (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ต่ำกว่า 1,700 ซีซี</td>
+            <td>1.5</td>
+          </tr>
+          <tr>
+            <td>มากกว่า 1,700 ซีซี</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <button type="button" (click)="onSubmit2()" class="btn btn-success btn-lg btn-block">
+        บันทึกการตั้งค่าส่วนลด
+      </button>
+    </div>
+  </div>
+
+  <!-- ส่วนลดอายุการใช้งาน -->
+  <div class="card my-3">
+    <div class="card-header">
+      <h3 class="mb-0" style="font-weight: bolder;">
+        ส่วนลดจากอายุการใช้งาน
+      </h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead class="text-center">
+          <tr>
+            <th>อายุการใช้งานจดทะเบียน (ปี)</th>
+            <th>ส่วนลด (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>อายุการใช้งาน 6 ปี</td>
+            <td>
+              <input type="number" value="10" class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>อายุการใช้งาน 7 ปี</td>
+            <td>
+              <input type="number" value="20" class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>อายุการใช้งาน 8 ปี</td>
+            <td>
+              <input type="number" value="30" class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>อายุการใช้งาน 9 ปี</td>
+            <td>
+              <input type="number" value="40" class="form-control">
+            </td>
+          </tr>
+          <tr>
+            <td>อายุการใช้งาน 10 ปี</td>
+            <td>
+              <input type="number" value="50" class="form-control">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <button type="button" (click)="onSubmit3()" class="btn btn-success btn-lg btn-block">
+        บันทึกส่วนลดจากอายุการใช้งาน
+      </button>
+    </div>
+  </div>
+</app-auth-content>

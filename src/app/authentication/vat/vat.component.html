@@ -1,0 +1,176 @@
+<app-auth-content>
+  <div class="card my-3">
+    <div class="card-body">
+      <h4 class="boler" style="font-weight: bolder;">รายการภาษีที่รายงานขนส่ง</h4>
+
+
+
+      <div class="breadcrumb">
+          <div class="row">
+            <div class="col-md-12" *ngIf="UserLogin.role==1">
+              <div class="form-group">
+                <label for="" style="font-weight: bolder;">บริษัท</label>
+                <div class="input-group mt-3">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" [(ngModel)]="model.filter" [ngModelOptions]="{standalone:true}" btnRadio="1" type="radio" name="category"
+                      value="option2">
+                    <label class="form-check-label text-muted" for="inlineRadio2">ดีจัง</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" [(ngModel)]="model.filter" [ngModelOptions]="{standalone:true}" btnRadio="2" type="radio" name="category"
+                      value="option3">
+                    <label class="form-check-label text-muted" for="inlineRadio3">ดีจ้า</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="font-weight: bolder;">วันที่</label>
+                <input type="number" [(ngModel)]="model.date" min="1" max="31" value="1" [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="font-weight: bolder;">เดือน</label>
+                <input type="number" [(ngModel)]="model.month" min="1" max="12" value="1"  [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="font-weight: bolder;" หะ>ปี (คศ. หรือ พศ.)</label>
+                <input type="number" [(ngModel)]="model.year" min="2563" value="2563" [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <button class="btn btn-primary my-2 btn-block" (click)="onSubmit()">
+                <i class="fa fa-search-plus"></i>แสดงข้อมูล
+              </button>
+            </div>
+          </div>
+      </div>
+
+      <h3 style="font-weight: bolder;">
+        รายการวันที่ :
+        <span class="text-info">
+          {{ date }}
+          <span class="text-warning">
+            ({{ returnCompany(model.filter) }})
+          </span>
+        </span>
+      </h3>
+
+      <div class="text-right">
+        <button class="btn btn-primary" (click)="onPrint()">
+          <i class="fa fa-print"></i> สั่งพิมพ์
+        </button>
+      </div>
+
+      <div class="table-responsive my-2 px-2">
+        <table class="table table-hover table-borderless ">
+          <thead class="thead-dark" style="font-weight: bolder;">
+            <tr class="text-center">
+              <td>
+                วันที่
+              </td>
+              <td>
+                เลขทะเบียน/เบอร์โทรศัพท์
+              </td>
+              <td>
+                ค่าภาษี
+              </td>
+              <td>
+                ค่าปรับ
+              </td>
+              <td>
+                เพิ่มเติม
+              </td>
+              <td>
+                รวมทั้งสิ้น
+              </td>
+            </tr>
+          </thead>
+          <tbody *ngIf="items">
+            <tr *ngFor="let data of items;let i = index;">
+              <td [tooltip]="thaidate.transform(data.dor,'dd MMMM yyyy')" *ngIf="!data.fines" [ngClass]="{'py-0 my-0':data.fines!=0}">
+                <!-- {{thaidate.transform(data.dor,'dd MMMM yyyy') }} -->
+                {{ data.dor | date:'HH:MM a' }}
+              </td>
+              <td  class="py-2" *ngIf="!data.fines">
+                {{ data.title }} <span class="text-info">({{ returnCategory(data.type) }})</span>
+              </td>
+              <td class="text-right py-2" *ngIf="!data.fines">
+                ฿ {{ data.price | number:'1.2-2' }}
+              </td>
+              <td class="text-right text-primary py-2" *ngIf="!data.fines">
+                  <span *ngIf="items[i+1]">
+                    <span *ngIf="items[i+1].fines!=0">
+                      + ฿ {{ items[i+1].fines | number:'1.2-2' }}
+                    </span>
+                    <span *ngIf="items[i+1].fines==0">
+                      + ฿ {{ data.fines | number:'1.2-2' }}
+                    </span>
+                  </span>
+                  <span *ngIf="!items[i+1]">
+                    <span *ngIf="items[i].fines!=0">
+                      + ฿ {{ data.fines | number:'1.2-2' }}
+                    </span>
+                    <span *ngIf="items[i].fines==0">
+                      + ฿ {{ data.fines | number:'1.2-2' }}
+                    </span>
+                  </span>
+              </td>
+              <td class="text-right text-success py-2" *ngIf="!data.fines">
+                <span *ngIf="data.type==3 && data.fines==0">
+                  + ฿ 10.00
+                </span>
+                <span *ngIf="data.type!=3 && data.fines==0">
+                  + ฿ 20.00
+                </span>
+              </td>
+              <td class="text-right py-2" style="font-weight: bolder;" *ngIf="!data.fines">
+                <span *ngIf="items[i+1]">
+                  <span *ngIf="data.type==3">
+                    ฿ {{ data.price +10 + items[i+1].fines | number:'1.2-2' }}
+                  </span>
+                  <span *ngIf="data.type!=3">
+                    ฿ {{ data.price +20 + items[i+1].fines | number:'1.2-2' }}
+                  </span>
+                </span>
+                <span *ngIf="!items[i+1]">
+                  <span *ngIf="data.type==3">
+                    ฿ {{ data.price +10 + data.fines | number:'1.2-2' }}
+                  </span>
+                  <span *ngIf="data.type!=3">
+                    ฿ {{ data.price +20 + data.fines | number:'1.2-2' }}
+                  </span>
+                </span>
+              </td>
+            </tr>
+            <tr class="bolder table-dark" style="font-weight: bolder;">
+              <td colspan="5">
+                รวมทั้งสิ้น
+              </td>
+              <td class="text-right">
+                ฿ {{ total_price | number: '1.2-2' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ถ้าไม่มีข้อมูลแสดง นาวโหลดดิ้ง -->
+        <div *ngIf="!items">
+          <div class="spinner-border text-info my-2" role="status">
+
+          </div>
+          <div>
+            <span class="text-info">Loading...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</app-auth-content>
+

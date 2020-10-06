@@ -1,0 +1,95 @@
+<app-auth-content>
+    <div class="card my-3">
+        <div class="card-header">
+            <h3 style="font-weight: bold;">
+                รายงานการยกเลิกใบเสร็จ
+            </h3>
+        </div>
+        <div class="card-body">
+        <!-- ส่วนตาราง -->
+        <p>
+            จำนวนทั้งสิ้น {{ total_items }} รายการ
+        </p>
+        <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">เวลา</th>
+                  <th scope="col">ชื่อลูกค้า</th>
+                  <th scope="col">เลขทะเบียน</th>
+                  <th scope="col">การชำระเงิน</th>
+                  <th scope="col" style="white-space: nowrap;">ออกใบเสร็จโดย</th>
+                  <th scope="col" style="white-space: nowrap;">ยกเลิกใบเสร็จโดย</th>
+                  <th scope="col">ยอดรวม</th>
+                  <th scope="col">จัดการข้อมูล</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- กรณีไม่ยังไม่เจอข้อมูล -->
+                <tr *ngIf="!items">
+                  <td colspan="8" class="text-center">
+                    <div class="spinner-border text-info my-2" role="status">
+  
+                    </div>
+                    <div>
+                      <span class="text-info">Loading...</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- กรณีเจอข้อมูลแล้ว -->
+                <tr *ngFor="let data of items;let i = index;">
+                    <td style="white-space: nowrap;">
+                        <span class="badge-pill badge-info">
+                            {{ data.company }}
+                        </span>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        {{ thaidate.transform(data.dor,"") }}
+                    </td>
+                    <td style="white-space: nowrap;">
+                        {{ data.customer }}
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <span [tooltip]="data.type">
+                            {{ data.title }}
+                        </span>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <button *ngIf="data.status==1" class="btn badge-pill btn-success btn-sm">
+                            <i class="fa fa-money"></i>
+                            เงินสด
+                          </button>
+                          <button *ngIf="data.status==2" class="btn badge-pill btn-warning btn-sm btn-scb">
+                            <i class="fa fa-university"></i>
+                            โอนธนาคาร
+                          </button>
+                    </td>
+                    <td style="white-space: nowrap;">
+                        {{ data.customer }}
+                    </td>
+                    <td style="white-space: nowrap;" class="text-danger">
+                        <span>
+                            <i class="fa fa-window-close-o"></i> 
+                            {{ data.name }}
+                        </span>
+                    </td>
+                    <td style="vertical-align: middle;white-space: nowrap;" class="text-right text-info">
+                        ฿ {{ data.total | number:'1.2-2' }}
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <button class="btn btn-warning mr-2" (click)="recoveryReceipt(data._id)">
+                            กู้คืนใบเสร็จ
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteFromTrash(data._id)">
+                            ลบถาวร
+                        </button>
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+</app-auth-content>

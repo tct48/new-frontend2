@@ -1,0 +1,322 @@
+<app-auth-content>
+    <div class="row" id="billing">
+      <!-- คอลัมน์ซ้าย -->
+      <div class="col-md-8">
+        <!-- card -->
+        <div class="card mt-3 shadow-sm bg-white rounded">
+          <div class="card-header ">
+            <h3 class="mb-0" style="font-weight: bolder;">
+              การชำระเงิน
+            </h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">เลขทะเบียน</label>
+                    <input type="text" [(ngModel)]="receipt.title" [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">ชื่อลูกค้า</label>
+                    <input type="text" [(ngModel)]="receipt.customer" [ngModelOptions]="{standalone:true}" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">ที่อยู่ลูกค้า</label>
+                    <input type="text" [(ngModel)]="receipt.address" [ngModelOptions]="{standalone:true}" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">ปริมาณซีซี (CC)</label>
+                    <input type="number" class="form-control" [(ngModel)]="receipt.cc" [ngModelOptions]="{standalone:true}">
+                    <small id="emailHelp" class="form-text text-muted">ระบุเพื่อคำนวณราคาภาษีอัตโนมัติ</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">อายุปีที่ใช้งาน (ปี)</label>
+                    <input type="number" class="form-control" [(ngModel)]="receipt.year" [ngModelOptions]="{standalone:true}">
+                    <small class="form-text text-muted">ระบุเพื่อคำนวณราคาภาษีอัตโนมัติ</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">น้ำหนักรถ</label>
+                    <input type="number" class="form-control" [(ngModel)]="receipt.weight" [ngModelOptions]="{standalone:true}">
+                    <small class="form-text text-muted">ระบุเพื่อคำนวณราคาภาษีอัตโนมัติ</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- checkbox -->
+              <div class="form-group">
+                <label for="exampleInput">ประเภทรถ</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="receipt.type" [ngModelOptions]="{standalone:true}" btnRadio="กระบะบรรทุก" type="radio" name="category"
+                    value="option1">
+                  <label class="form-check-label text-muted" for="inlineRadio1">กระบะบรรทุก</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="receipt.type" [ngModelOptions]="{standalone:true}" btnRadio="ตู้บรรทุก" type="radio" name="category"
+                    value="option2">
+                  <label class="form-check-label text-muted" for="inlineRadio2">ตู้บรรทุก</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="receipt.type" [ngModelOptions]="{standalone:true}" btnRadio="รถยนต์ 4 ประตู" type="radio" name="category"
+                    value="option3">
+                  <label class="form-check-label text-muted" for="inlineRadio3">รถยนต์ 4 ประตู</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="receipt.type" [ngModelOptions]="{standalone:true}" btnRadio="รถตู้ส่วนบุคคล" type="radio" name="category"
+                    value="option3">
+                  <label class="form-check-label text-muted" for="inlineRadio3">รถตู้ส่วนบุคคล</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" [(ngModel)]="receipt.type" [ngModelOptions]="{standalone:true}" btnRadio="มอเตอร์ไซค์" type="radio" name="category"
+                    value="option3">
+                  <label class="form-check-label text-muted" for="inlineRadio3">มอเตอร์ไซค์</label>
+                </div>
+              </div>
+              <div class="py-3">
+                <button type="button" (click)="onPushDetail('ตรวจสภาพรถ')" class="btn btn-light btn-lg btn-block">ตรวจสภาพรถ</button>
+                <button type="button" (click)="onPushDetail('พรบ')" class="btn btn-light btn-lg btn-block">พรบ</button>
+                <button type="button" (click)="onPushDetail('ภาษี')" class="btn btn-light btn-lg btn-block">ภาษี</button>
+                <button type="button" (click)="onPushDetail('ฝากต่อ')" class="btn btn-light btn-lg btn-block">ฝากต่อ</button>
+                <button type="button" (click)="onPushDetail('ประกันภัย')" class="btn btn-light btn-lg btn-block">ประกันภัย</button>
+                <button type="button" (click)="onPushDetail('กำหนดเอง')" class="btn btn-light btn-lg btn-block">กำหนดเอง</button>
+                <p class=" py-2" style="font-weight: bold;">ค่าแก๊ส :</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button type="button" (click)="onPushDetail('CNG')" class="btn btn-secondary btn-lg btn-block">CNG</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" (click)="onPushDetail('LPG')" class="btn btn-secondary btn-lg btn-block">LPG</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <button type="button" *ngIf="view==false" (click)="onSubmit()" class="btn btn-success btn-lg btn-block">บันทึกข้อมูล</button>
+            <button type="button" *ngIf="view==true" (click)="onCancel()" class="btn btn-dark btn-lg btn-block">ยกเลิกการดูข้อมูล</button>
+          </div>
+        </div>
+      </div>
+      <!-- คอลัมน์ ขวา -->
+      <div class="col-md-4">
+        <!-- รายละเอียดใบเสร็จ -->
+
+        <!-- กรณีใบเสร็จไม่โหลดข้อมูล -->
+        <div *ngIf="!receipt.customer" class="container-fluid py-3 mt-3 shadow-lg bg-white">
+          <h5 class="text-center" style="font-weight: bolder;text-align: center;">
+            ใบเสร็จรับเงิน
+          </h5>
+          <div class="text-center">
+            <div class="spinner-border text-info my-2" role="status">
+
+            </div>
+            <div>
+              <span class="text-info">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- กรณีใบเสร็จโหลดข้อมูล -->
+        <div *ngIf="receipt.customer" class="container-fluid py-3 mt-3 shadow-lg bg-white" style="background-color: white;">
+          <h5 class="text-center" style="font-weight: bolder;text-align: center;">
+            ใบเสร็จรับเงิน
+          </h5>
+          <div class="text-center my-4">
+            <img src="../../../assets/image/โลโก้ตรอ.png" style="max-width: 120px;" alt="">
+          </div>
+          <p class="py-0 my-0 text-right">
+            <span class="text-info" style="font-weight: bold;">วันที่ : </span>{{ receipt.dor | date:'dd MMMM yyyy' }}
+          </p>
+          <p class="py-0 my-0">
+            <span class="text-info" style="font-weight: bold;">เลขทะเบียน : </span>{{ receipt.title }}
+          </p>
+          <p class="py-0 my-0">
+            <span class="text-info" style="font-weight: bold;">ชื่อลูกค้า : </span>{{ receipt.customer }}
+          </p>
+          <p class="py-0 my-0">
+            <span class="text-info" style="font-weight: bold;">ประเภทรถ : </span>{{ receipt.type }}
+            <span class="text-info small"> ({{ receipt.cc }} ซีซี / อายุ {{ receipt.year }} ปี)</span>
+          </p>
+          <!-- รายการ -->
+          <p class="py-0 my-0">
+            <span class="text-info" style="font-weight: bold;">รายการ : </span>
+          </p>
+          <div class="row" *ngFor="let data of detail;let i = index;">
+            <div class="col-md-6">
+              {{ i+1 }}. {{ data.name }}
+            </div>
+            <div class="col-md-6 text-right">
+              {{ data.price | number:'1.2-2' }}
+            </div>
+          </div>
+          <div class="row my-3 text-info" style="font-weight: bold">
+            <div class="col-md-6">
+              รวมทั้งสิ้น
+            </div>
+            <div class="col-md-6 text-right">
+              {{ receipt.total | number:'1.2-2' }}
+            </div>
+          </div>
+          <div *ngIf="view==true" class="mt-5 text-right">
+            <span class="badge badge-pill badge-success hove" tooltip="พนักงาน">
+              <i class="fa fa-check" aria-hidden="true"></i>
+              {{ receipt.member }}
+            </span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-danger btn-block shadow my-3" *ngIf="detail.length>0" (click)="onPopDetail()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>&nbsp; ดึงออก
+        </button>
+        <button class="btn btn-warning btn-block text-white shadow my-3" *ngIf="view==true" (click)="onUpdate()">
+          <i class="fa fa-edit">&nbsp; แก้ไข</i>
+        </button>
+        <button type="button" *ngIf="view==true" printSectionId="print-section" (click)="generatePdf()" ngxPrint class="btn btn-primary btn-block shadow my-3">
+          <i class="fa fa-print"></i>&nbsp; สั่งพิมพ์
+        </button>
+      </div>
+    </div>
+
+    <!-- โชว์ข้อมูล -->
+    <div class="card shadow-sm bg-white rounded my-3">
+      <div class="card-body">
+        <!-- ส่วนค้นหา -->
+        <div class="breadcrumb">
+          <h5 class="mb-0">
+            <i class="fa fa-search"></i>
+            ค้นหา
+          </h5>
+          <div class="input-group mt-3">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" [(ngModel)]="filter" [ngModelOptions]="{standalone:true}" btnRadio="5" type="radio" name="category"
+                value="option1">
+              <label class="form-check-label text-muted" for="inlineRadio1">ทั้งหมด</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" [(ngModel)]="filter" [ngModelOptions]="{standalone:true}" btnRadio="1" type="radio" name="category"
+                value="option2">
+              <label class="form-check-label text-muted" for="inlineRadio2">ดีจัง</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" [(ngModel)]="filter" [ngModelOptions]="{standalone:true}" btnRadio="2" type="radio" name="category"
+                value="option3">
+              <label class="form-check-label text-muted" for="inlineRadio3">ดีจ้า</label>
+            </div>
+            <!-- <div class="form-check form-check-inline">
+              <input class="form-check-input" [(ngModel)]="filter" [ngModelOptions]="{standalone:true}" btnRadio="3" type="radio" name="category"
+                value="option3">
+              <label class="form-check-label text-muted" for="inlineRadio3">ดีจ้าออโต้</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" [(ngModel)]="filter" [ngModelOptions]="{standalone:true}" btnRadio="4" type="radio" name="category"
+                value="option3">
+              <label class="form-check-label text-muted" for="inlineRadio3">ดีจังหนองจอก</label>
+            </div> -->
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="option.text_search" placeholder="ค้นหาจากชื่อลูกค้า หรือ เลขทะเบียน" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="onSearch()" type="button" id="button-addon2">Search</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ส่วนตาราง -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">เวลา</th>
+                <th scope="col">ชื่อลูกค้า</th>
+                <th scope="col">เลขทะเบียน</th>
+                <th scope="col">การชำระเงิน</th>
+                <th scope="col">ประเภทรถ</th>
+                <th scope="col">ยอดรวม</th>
+                <th scope="col">จัดการข้อมูล</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!items">
+                <td colspan="8" class="text-center">
+                  <div class="spinner-border text-info my-2" role="status">
+
+                  </div>
+                  <div>
+                    <span class="text-info">Loading...</span>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngFor="let data of items;let i = index;">
+                <td style="vertical-align: middle;">{{ i+1 }}</td>
+                <td style="vertical-align: middle;white-space: nowrap;" class="pointer" [tooltip]="data.created | date:'(h:mm:ss a)'">
+                  <!-- this.thaidate.transform -->
+                  {{ thaidate.transform(data.created,"") }}
+                </td>
+                <td style="vertical-align: middle;white-space: nowrap;">
+                  <span *ngIf="getLength(data.customer)>10" class="pointer" [tooltip]="data.customer">{{ data.customer | slice:0:10 }}...</span>
+                  <span *ngIf="getLength(data.customer) < 11">{{ data.customer }}</span>
+                </td>
+                <td style="vertical-align: middle;white-space: nowrap;">{{ data.title }}</td>
+                <td>
+                  <button *ngIf="data.status==1" (click)="statusBill(data._id,data.status)" class="btn badge-pill btn-success btn-sm">
+                    <i class="fa fa-money"></i>
+                    เงินสด
+                  </button>
+                  <button *ngIf="data.status==2" (click)="statusBill(data._id,data.status)" class="btn badge-pill btn-warning btn-sm btn-scb">
+                    <i class="fa fa-university"></i>
+                    โอนธนาคาร
+                  </button>
+                </td>
+                <td style="vertical-align: middle;white-space: nowrap;">
+                  {{ returnCategory(data.type) }}
+                </td>
+                <td style="vertical-align: middle;white-space: nowrap;" class="text-right text-info">฿ {{ data.total | number:'1.2-2' }}</td>
+                <td class="px-4" style="white-space: nowrap;">
+                  <button class="btn btn-primary"  (click)="onView(data._id)" tooltip="ดูข้อมูล">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button class="btn btn-info mx-2" (click)="onPrint(data._id)"  tooltip="สั่งพิมพ์">
+                    <i class="fa fa-print"></i>
+                  </button>
+                  <button class="btn btn-danger " (click)="onDelete(data._id)"  tooltip="ลบข้อมูล">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-weight: bolder;" class="mt-0 pt-0 text-right">
+          รวมทั้งสิ้น {{ total_items }} รายการ
+        </p>
+        <div class="text-center" style="align-items: center;">
+          <!-- pagination -->
+          <pagination
+          (pageChanged)="pageChanged($event)"
+          [totalItems]="total_items"
+          *ngIf="items"
+          [itemsPerPage]="option.lp"
+          directionLink="true"
+          previousText="ก่อนหน้า"
+          nextText="ถัดไป"
+          [maxSize]="5"
+          boundaryLinks="false"
+          firstText="หน้าแรก"
+          lastText="หน้าสุดท้าย"
+        ></pagination>
+        </div>
+      </div>
+    </div>
+</app-auth-content>
+

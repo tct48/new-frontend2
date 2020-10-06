@@ -1,0 +1,257 @@
+<app-auth-content>
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="mb-3">
+        <div class="breadcrumb" id="billing">
+          <div class="row">
+            <div class="col-md-12" *ngIf="UserLogin.role==1">
+              <div class="form-group">
+                <label for="" style="font-weight: bolder;">บริษัท</label>
+                <div class="input-group mt-3">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" [(ngModel)]="model.filter" [ngModelOptions]="{standalone:true}"
+                      btnRadio="1" type="radio" name="category" value="option2">
+                    <label class="form-check-label text-muted" for="inlineRadio2">ดีจัง</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" [(ngModel)]="model.filter" [ngModelOptions]="{standalone:true}"
+                      btnRadio="2" type="radio" name="category" value="option3">
+                    <label class="form-check-label text-muted" for="inlineRadio3">ดีจ้า</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="font-weight: bolder;">วันที่</label>
+                <input type="number" [(ngModel)]="model.date" min="1" max="31" value="1"
+                  [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="font-weight: bolder;">เดือน</label>
+                <input type="number" [(ngModel)]="model.month" min="1" max="12" value="1"
+                  [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="font-weight: bolder;" หะ>ปี (คศ. หรือ พศ.)</label>
+                <input type="number" [(ngModel)]="model.year" min="2563" value="2563"
+                  [ngModelOptions]="{standalone:true}" class="form-control" aria-describedby="emailHelp">
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <button class="btn btn-primary my-2 btn-block" (click)="onSubmit()">
+                <i class="fa fa-search-plus"></i>แสดงข้อมูล
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4>
+        จำนวนทั้งสิ้น : <span class="text-info">{{ total_items }} </span>ใบเสร็จ
+      </h4>
+
+      <button class="btn btn-success my-2" style="float:right" (click)="exportexcel()">
+        ส่งออกเป็น excel
+      </button>
+
+      <div class="table-responsive mb-3">
+        <table class="table table-striped" id="excel-table">
+          <thead class="thead-dark">
+            <tr>
+              <th rowspan="2" class="text-center px-3" style="vertical-align: middle;font-weight: bold;">ลำดับ</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">วัน/เดือน/ปี</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">ทะเบียน</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">ช่องทางชำระเงิน</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">ประเภทรถ</th>
+              <th colspan="9" class="text-center">ค่าบริการ</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">รวม</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">หักค่าใช้จ่าย</th>
+              <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">คงเหลือ</th>
+            </tr>
+            <tr>
+              <th style="white-space: nowrap;">ตรวจสภาพ</th>
+              <th style="white-space: nowrap;">พรบ</th>
+              <th style="white-space: nowrap;">เสียภาษี</th>
+              <th style="white-space: nowrap;">ประกันภัย</th>
+              <th style="white-space: nowrap;">แก๊ส(เก่า)</th>
+              <th style="white-space: nowrap;">CNG</th>
+              <th style="white-space: nowrap;">LPG</th>
+              <th style="white-space: nowrap;">NGV</th>
+              <th style="white-space: nowrap;">ฝากต่อ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of items; let i=index;">
+              <td>{{ i+1 }}</td>
+              <td>{{ data.dor | date:'HH:MM a' }}</td>
+              <td>{{ data.title }}</td>
+              <td style="white-space: nowrap;">
+                <button *ngIf="data.status=='เงินสด'" class="btn badge-pill btn-success btn-sm">
+                  <i class="fa fa-money"></i>
+                  เงินสด
+                </button>
+                <button *ngIf="data.status=='โอนธนาคาร'" class="btn badge-pill btn-warning btn-sm btn-scb">
+                  <i class="fa fa-university"></i>
+                  โอนธนาคาร
+                </button>
+              </td>
+              <td style="white-space: nowrap;">{{ data.type }}</td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.inspection">
+                  ฿ {{ data.inspection | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.act">
+                  ฿ {{ data.act | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.vat">
+                  ฿ {{ data.vat | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.insurance">
+                  ฿ {{ data.insurance | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.gas">
+                  ฿ {{ data.gas | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.cng">
+                  ฿ {{ data.cng | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.lpg">
+                  ฿ {{ data.lpg | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.ngv">
+                  ฿ {{ data.ngv | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.deposit">
+                  ฿ {{ data.deposit | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                ฿ {{ data.total | number:'1.2-2' }}
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.detuct_cash">
+                  ฿ {{ data.detuct_cash | number:'1.2-2' }}
+                </span>
+              </td>
+              <td class="text-right" style="white-space: nowrap;">
+                <span *ngIf="data.detuct_cash">
+                  ฿ {{ data.balance | number:'1.2-2' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="my-3">
+        <div class="row">
+          <div class="col-md-6">
+
+          </div>
+          <div class="col-md-6">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    รายการ
+                  </th>
+                  <th>
+                    เงินโอน
+                  </th>
+                  <th>
+                    เงินสด
+                  </th>
+                  <th>
+                    ผลรวม
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ยอดรวม</td>
+                  <td class="text-success">
+                    ฿ {{ report.bank | number: '1.2-2' }}
+                  </td>
+                  <td class="text-success">
+                    ฿ {{ report.cash | number: '1.2-2' }}
+                  </td>
+                  <td>
+                    ฿ {{ report.total | number: '1.2-2' }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>หักค่าใช้จ่าย</td>
+                  <td>
+                    <span class="text-danger">
+                      ฿ -{{ report.detuct_bank | number: '1.2-2' }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="text-danger">
+                      ฿ -{{ report.detuct_cash | number: '1.2-2' }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="text-danger">
+                      ฿ -{{ report.detuct_cash + report.detuct_bank | number: '1.2-2' }}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>ยอดรวมหลังหักค่าใช้จ่าย</th>
+                  <td>
+                    <span class="text-success">
+                      ฿ {{ report.bank-report.detuct_bank | number: '1.2-2' }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="text-success">
+                      ฿ {{ report.total-report.bank-report.detuct_cash | number: '1.2-2' }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h2 class="text-right text-success">
+              <span class="text-dark" style="font-weight: bold;">ยอดเงินโอน : </span>
+              ฿ {{ report.bank-report.detuct_bank | number: '1.2-2' }}
+            </h2>
+            <h2 class="text-right text-success">
+              <span class="text-dark" style="font-weight: bold;">ยอดเงินสด : </span>
+              ฿ {{ report.total-report.bank-report.detuct_cash | number: '1.2-2' }}
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-auth-content>

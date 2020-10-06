@@ -1,0 +1,52 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-4 rounded bg-custom-2 py-0">
+        <a class="navbar-brand" href="#">
+          <span *ngIf="UserLogin.role==1" class="text-warning">ผู้ดูแลระบบ</span>
+          <span *ngIf="UserLogin.role!=1">
+            <span *ngIf="UserLogin.company==1">ดีจัง</span>
+            <span *ngIf="UserLogin.company==2">ดีจ้า</span>
+            <span *ngIf="UserLogin.company==3">ดีจ้าออโต้</span>
+            <span *ngIf="UserLogin.company==4">ดีจังหนองจอก</span>
+            <span *ngIf="UserLogin.role==2" class="text-warning small">
+              (ผู้ดูแลสาขา)
+            </span>
+            <span *ngIf="UserLogin.role==3"  class="text-warning small">
+              (พนักงานทั่วไป)
+            </span>
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <!-- class active -->
+            <li class="nav-item hover">
+              <a class="nav-link" [routerLink]="['/authentication/bill']" routerLinkActive="active">การชำระเงิน <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item hover">
+                <a class="nav-link" *ngIf="UserLogin.role!=3" [routerLink]="['/authentication/member']" routerLinkActive="active">จัดการสมาชิก <span class="sr-only">(current)</span></a>
+            </li>
+            <!-- <li class="nav-item hover">
+                <a class="nav-link" [routerLink]="['/authentication/promotion']" routerLinkActive="active">ราคา <span class="sr-only">(current)</span></a>
+            </li> -->
+            <li class="nav-item hover">
+                <a class="nav-link" [routerLink]="['/authentication/summarize']" routerLinkActive="active">สรุปยอด <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item hover">
+              <a class="nav-link" [routerLink]="['/authentication/vat']" routerLinkActive="active">รายงานภาษี <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item hover">
+              <a class="nav-link" [routerLink]="['/authentication/report']" routerLinkActive="active">รายงานบัญชีรายวัน <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item hover" *ngIf="UserLogin.role==1">
+              <a class="nav-link" tooltip="เฉพาะผู้ดูแล" [routerLink]="['/authentication/trash']" routerLinkActive="active">รายงานการยกเลิกใบเสร็จ <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-light py-0 my-2 my-sm-0" (click)="onLogout()" type="submit">ออกจากระบบ</button>
+          </form>
+        </div>
+      </nav>
+</div>

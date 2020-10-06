@@ -1,0 +1,19 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.hove {
+  cursor: pointer;
+}
+
+.btn-scb:hover {
+  color: #471a5e;
+  background-color: #8a2be2;
+  border-color: #6c1db6;
+}
+
+.btn-scb {
+  color:white;
+  background-color: #9932cc;
+  border-color: #9932cc;
+}
