@@ -54,8 +54,8 @@ export class AccountService {
     // ล๊อกอิน
     onLogin(model: ILogin) {
         return this.http
-            .requestPost('member/login', model)
-            .toPromise() as Promise<{ accessToken: string,user:any }>
+            .requestPost('member/signin.php', model)
+            .toPromise() as Promise<any>
     }
 
     // ล๊อกเอาท์

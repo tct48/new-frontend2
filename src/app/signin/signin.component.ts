@@ -47,13 +47,23 @@ export class SigninComponent implements OnInit {
       return this.alert.success("กรุณากรอกข้อมูลให้ครบถ้วน!")
     }
 
+    // console.log(this.form.value);
+    // return;
+
     this.account.onLogin(this.form.value).then(result=>{
       // เก็บ AccessToken
-      this.authen.setAuthenticated(result.accessToken,result.user)
+      console.log(result);
+
+      if(result.Error==404){
+        this.alert.notify("Username หรือ Password ไม่ถูกต้อง!");
+        return;
+      }
+
+      this.authen.setAuthenticated(result._id,result)
       this.alert.success('ยินดีต้อนรับเข้าสู่ระบบ')
       this.router.navigateByUrl(this.returnURL)
     }).catch(err=>{
-      this.alert.notify("Username หรือ Password ไม่ถูกต้อง!")
+      this.alert.notify("Username หรือ Password ไม่ถูกต้อง!");
     })
   }
 

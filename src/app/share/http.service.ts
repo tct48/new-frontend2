@@ -14,8 +14,8 @@ import {
 export class HttpService {
     constructor(private http: HttpClient) {}
      
-    private address: string = 'https://deejung.herokuapp.com/'
-    // * private address : string = "http://localhost:3000/"
+    // private address: string = 'https://deejung.herokuapp.com/'
+    private address : string = "http://localhost/พงษ์ไอร่เวร/api/"
 
     //Request GET method
     requestGet(url: string, accessToken?: string) {
