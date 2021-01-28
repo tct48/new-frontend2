@@ -11,26 +11,26 @@ export class ReceiptService {
   constructor(private authen: AuthenService, private http: HttpService) { }
 
   insertReceipt(model: any) {
-    let url = `receipt/`;
+    let url = `receipt/_post`;
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
 
   deleteReceiptDetail(_id:string){
-    let url = `receipt/update/${_id}`;
-    return this.http.requestDelete(url,this.authen.getAuthenticated()).toPromise() as Promise<any>
+    let url = `receipt/_delete.php?detail=del`;
+    return this.http.requestPost(url,{_id: _id}).toPromise() as Promise<any>
   }
 
   insertReceiptDetail(_id: number, model: any) {
-    let url = `receipt/detail/` + _id;
+    let url = `receipt/_post_detail.php?_id=` + _id;
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
 
   loadReceipt(option: OptionSearch) {
-    let url = `receipt?sp=${option.sp}&lp=${option.lp}`;
+    let url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&textSearch=${option.text_search}`;
     if (option.company && option.role) {
-      url = `receipt?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}`;
+      url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}&textSearch=${option.text_search}`;
     }
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>;
   }
@@ -55,12 +55,12 @@ export class ReceiptService {
   }
 
   updateTotalReceipt(model:any){
-    let url = `receipt/total`;
+    let url = `receipt/_put.php?CASE=update`;
     return this.http.requestPut(url, this.authen.getAuthenticated(),model).toPromise() as Promise<any>
   }
 
   updateStatusReceipt(model:any){
-    let url = `receipt/status`;
+    let url = `receipt/_put.php?CASE=status`;
     return this.http.requestPut(url, this.authen.getAuthenticated(), model).toPromise() as Promise<any>
   }
 
@@ -68,22 +68,24 @@ export class ReceiptService {
     if(!option.text_search){
       option.text_search="";
     }
-    let url = `receipt/search?sp=${option.sp}&lp=${option.lp}&textSearch=${option.text_search}`;
+    let url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&textSearch=${option.text_search}`;
     if (option.company && option.role) {
-      url = `receipt/search?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}&textSearch=${option.text_search}`;
+      url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}&textSearch=${option.text_search}`;
     }
-
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 
   loadReceiptByID(_id: number) {
-    let url = 'receipt/' + _id;
+    let url = 'receipt/_get.php?_id=' + _id;
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 
   deleteReceipt(_id: number,model:any) {
-    let url = `receipt/${_id}`;
-    return this.http.requestPatch(url, this.authen.getAuthenticated(),model).toPromise() as Promise<any>
+    var url = `receipt/_delete.php?view=0&user=${model.user}&_id=${_id}`;
+    var obj = {
+      _id:_id
+    }
+    return this.http.requestDelete(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 
   deleteFromTrash(_id:number){

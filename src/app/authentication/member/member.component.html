@@ -196,10 +196,11 @@
               </td>
               <td style="vertical-align: middle;" class="block">{{ data.company }}</td>
               <td style="vertical-align: middle;" class="text-muted block">
-                {{ data.created | date: "dd-MMMM-y" }}
+                {{data.created | date: 'dd-MM-yyyy'}}
               </td>
               <td style="vertical-align: middle;" class="text-success block">
-                {{ data.updated | dateAgo }}
+                {{ data.updated | date:'dd-MM-yyyy' }}
+                
               </td>
               <td style="vertical-align: middle;" class="block">
                 <!-- <button class="btn btn-primary mr-2" tooltip="ดูข้อมูล">

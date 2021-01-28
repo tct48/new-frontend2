@@ -103,7 +103,6 @@ export class BillComponent implements OnInit {
 
     if (data == "ค่าปรับ") {
       let check: boolean = false;
-      console.log("เข้ามา")
       for (var i = 0; i < this.detail.length; i++) {
         if (this.detail[i].name == 'ภาษี') {
           check = true;
@@ -239,7 +238,8 @@ export class BillComponent implements OnInit {
           price: Number(result.value),
         };
         this.detail.push(obj);
-        this.receipt.total += obj.price;
+        let x = Number(this.receipt.total) + Number(obj.price);
+        this.receipt.total = x;
       }
     });
   }
@@ -272,7 +272,7 @@ export class BillComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'ใช่, ฉันต้องการลบข้อมูล!',
       cancelButtonText: 'ยกเลิก',
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         let model = {
           user: localStorage.getItem("_id"),
@@ -280,13 +280,14 @@ export class BillComponent implements OnInit {
         }
         this.receipt_service
           .deleteReceipt(_id, model)
-          .then((result) => {
+          .then(result => {
             Swal.fire('ลบข้อมูล!', 'ข้อมูลถูกลบเรียบร้อยแล้ว', 'success');
             this.option.sp = 0;
             this.onLoadReceipt();
           })
-          .catch(() => {
+          .catch(error => {
             this.alert.notify();
+            console.log(error);
           });
       }
     });
@@ -306,11 +307,12 @@ export class BillComponent implements OnInit {
       });
       return;
     }
+
     this.receipt_service.loadReceiptByID(_id).then(result => {
+
       this.view = true;
       this.receipt = result.receipt[0];
       this.detail = result.detail;
-
       this.receipt.type = this.returnCategory(this.receipt.type);
 
       document.querySelector('#billing').scrollIntoView({
@@ -378,8 +380,6 @@ export class BillComponent implements OnInit {
     if (!this.detail || !this.receipt) {
       return this.alert.notify("เกิดข้อผิดพลาดไม่สามารถแก้ไขได้")
     }
-    console.log(this.receipt)
-    console.log(this.detail)
     this.receipt_service.deleteReceiptDetail(this.receipt._id)
       .then(result => {
         this.receipt_service.updateTotalReceipt({ _id: this.receipt._id, total: this.receipt.total })
@@ -388,7 +388,7 @@ export class BillComponent implements OnInit {
               .then(result => {
                 this.onLoadReceipt();
                 this.clearModel();
-                this.view=false;
+                this.view = false;
                 this.alert.success("แก้ไขข้อมูลสำเร็จ!");
               })
           })
@@ -679,7 +679,7 @@ export class BillComponent implements OnInit {
     }
 
     this.items = null;
-
+    // return;
     this.receipt_service.updateStatusReceipt({ _id: _id, status: dumb }).then(result => {
       this.onLoadReceipt()
     }).catch(err => {

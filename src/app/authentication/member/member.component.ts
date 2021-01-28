@@ -37,7 +37,7 @@ export class MemberComponent implements OnInit {
 
   items:any;
   total_items:number;
-  lp:number=5;
+  lp:number=10;
 
   IMember:any={
     _id:0,
@@ -46,6 +46,7 @@ export class MemberComponent implements OnInit {
     name:null,
     role:null,
     company:null,
+    status:1
   }
 
   option:OptionSearch={
@@ -73,7 +74,6 @@ export class MemberComponent implements OnInit {
     }else if(this.IMember.company=="ดีจังหนองจอก"){
       obj.company = 4;
     }
-
     if(!obj.username || !obj.password || !obj.name || !obj.role || !obj.company){
       return this.alert.notify("กรุณากรอกข้อมูลให้ครบถ้วน!")
     }
@@ -133,6 +133,7 @@ export class MemberComponent implements OnInit {
   }
 
   onLoadMember(){
+    console.log(this.option);
     this.member.loadMember(this.option).then(result=>{
       this.total_items = result.total_items;
       this.items = result.items;
