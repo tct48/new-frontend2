@@ -13,22 +13,25 @@ export class SummaryService {
     ) {}
 
     getLast15Day(company:number){
-        return this.http.requestGet('summary/'+company,this.authen.getAuthenticated())
+        return this.http.requestGet('summary/_get.php?case=company&company='+company,this.authen.getAuthenticated())
             .toPromise() as Promise<any>
     }
 
     getLast7Month(company:number){
-        return this.http.requestGet('summary/month/' + company, this.authen.getAuthenticated())
+        return this.http.requestGet('summary/_get.php?case=month/company&company='+company, this.authen.getAuthenticated())
             .toPromise() as Promise<any>
     }
 
     getVat(model:any){
-      return this.http.requestGet(`summary/vat?company=${model.filter}&date=${model.date}&month=${model.month}&year=${model.year}`,this.authen.getAuthenticated())
+        let url = `receipt/_get_daily.php?date=${model.date}&month=${model.month}&year=${model.year}`;
+        console.log(url);
+      return this.http.requestGet(url,this.authen.getAuthenticated())
         .toPromise() as Promise<any>
     }
 
     getVat5Days(company:any){
-      return this.http.requestGet(`summary/vat5days?company=${company}`,this.authen.getAuthenticated())
+        console.log("D");
+      return this.http.requestGet(`summary/vat5days?case=vat5days&company=${company}`,this.authen.getAuthenticated())
         .toPromise() as Promise<any>
     }
 }

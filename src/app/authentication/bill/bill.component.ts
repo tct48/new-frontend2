@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/share/shareds/alert.service';
-import { min, windowWhen } from 'rxjs/operators';
+import { delay, min, windowWhen } from 'rxjs/operators';
 
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -314,6 +314,7 @@ export class BillComponent implements OnInit {
       this.receipt = result.receipt[0];
       this.detail = result.detail;
       this.receipt.type = this.returnCategory(this.receipt.type);
+      console.log(result);
 
       document.querySelector('#billing').scrollIntoView({
         behavior: 'smooth'
@@ -365,9 +366,12 @@ export class BillComponent implements OnInit {
       this.receipt.type = 5;
     }
 
+    console.log(this.receipt);
+    this.receipt.receipt_no=1;
+
     this.receipt_service.insertReceipt(this.receipt).then((result) => {
       this.receipt_service
-        .insertReceiptDetail(result.item, this.detail)
+        .insertReceiptDetail(result._id, this.detail)
         .then((result) => {
           this.onLoadReceipt();
           this.clearModel();

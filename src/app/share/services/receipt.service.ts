@@ -11,7 +11,8 @@ export class ReceiptService {
   constructor(private authen: AuthenService, private http: HttpService) { }
 
   insertReceipt(model: any) {
-    let url = `receipt/_post`;
+    let url = `receipt/_post.php`;
+    console.log(model);
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
@@ -23,14 +24,16 @@ export class ReceiptService {
 
   insertReceiptDetail(_id: number, model: any) {
     let url = `receipt/_post_detail.php?_id=` + _id;
+    console.log(model);
+    console.log(url);
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
 
   loadReceipt(option: OptionSearch) {
-    let url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&textSearch=${option.text_search}`;
+    let url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}`;
     if (option.company && option.role) {
-      url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}&textSearch=${option.text_search}`;
+      url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}`;
     }
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>;
   }
@@ -38,9 +41,9 @@ export class ReceiptService {
   loadDaily(model?:any){
     var url;
     if(model)
-    url=`receipt/daily?company=${model.filter}&date=${model.date}&month=${model.month}&year=${model.year}`;
+    url=`receipt/_get_daily.php?company=${model.filter}&date=${model.date}&month=${model.month}&year=${model.year}`;
     else
-    url="receipt/daily"
+    url="receipt/_get_daily"
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>;
   }
 
@@ -50,7 +53,7 @@ export class ReceiptService {
   }
 
   loadTrash(){
-    let url='receipt/trash';
+    let url='receipt/_trash.php';
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 
@@ -72,6 +75,7 @@ export class ReceiptService {
     if (option.company && option.role) {
       url = `receipt/_search.php?sp=${option.sp}&lp=${option.lp}&role=${option.role}&company=${option.company}&textSearch=${option.text_search}`;
     }
+    console.log(url);
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 
@@ -85,6 +89,7 @@ export class ReceiptService {
     var obj = {
       _id:_id
     }
+    console.log(url);
     return this.http.requestDelete(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 

@@ -75,15 +75,15 @@ export class ReportComponent implements OnInit {
       console.log(this.items[0])
 
       for (var i = 0; i < this.total_items; i++) {
-        this.report.total += this.items[i].total;
+        this.report.total = Number(this.report.total) + Number(this.items[i].total);
         if (this.items[i].status == "เงินสด")
-          this.report.detuct_cash += this.items[i].detuct;
+          this.report.detuct_cash = Number(this.report.total) + Number(this.items[i].detuct);
         else
-          this.report.detuct_bank += this.items[i].detuct;
+          this.report.detuct_bank = Number(this.report.detuct_bank) + Number(this.items[i].detuct);
         if (this.items[i].status == 'เงินสด') {
-          this.report.cash += this.items[i].total;
+          this.report.cash = Number(this.report.cash) + Number(this.items[i].total);
         } else if (this.items[i].status == 'โอนธนาคาร') {
-          this.report.bank += this.items[i].total;
+          this.report.bank = Number(this.report.bank) + Number(this.items[i].total);
         }
       }
 
@@ -98,16 +98,17 @@ export class ReportComponent implements OnInit {
       this.total_items = result.total_items;
       this.items = result.items;
       console.log("new price");
+      console.log(this.items);
       for (var i = 0; i < this.total_items; i++) {
-        this.report.total += this.items[i].total;
+        this.report.total = Number(this.report.total) + Number(this.items[i].total);
         if (this.items[i].status == "เงินสด")
-          this.report.detuct_cash += this.items[i].detuct;
+          this.report.detuct_cash = Number(this.report.detuct_cash) + Number(this.items[i].detuct);
         else
-          this.report.detuct_bank += this.items[i].detuct;
+          this.report.detuct_bank = Number(this.report.detuct_bank) + Number(this.items[i].detuct);
         if (this.items[i].status == 'เงินสด') {
-          this.report.cash += this.items[i].total;
+          this.report.cash = Number(this.report.cash) +  Number(this.items[i].total);
         } else if (this.items[i].status == 'โอนธนาคาร') {
-          this.report.bank += this.items[i].total;
+          this.report.bank = Number(this.report.bank) + Number(this.items[i].total);
         }
       }
 

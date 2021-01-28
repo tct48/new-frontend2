@@ -107,25 +107,25 @@ export class VatComponent implements OnInit {
     }
     this.summary.getVat(this.model).then(result=>{
       this.items = result.items;
-      console.log(this.items)
+      console.log(this.items);
 
       for (let i = 0; i < this.items.length; i++) {
         if (this.items[i].type == 3) {
-          this.total_price += this.items[i].price + 10;
+          this.total_price = Number(this.total_price) +  Number(this.items[i].price + 10);
         } else {
-          this.total_price += this.items[i].price + 20;
+          this.total_price = Number(this.total_price) +  Number(this.items[i].price + 20);
         }
         if(this.items[i].fines!=0){
           if (this.items[i].type == 3) {
-            this.total_price -= this.items[i].price + 10;
+            this.total_price = Number(this.total_price) - Number(this.items[i].price + 10);
           } else {
-            this.total_price -= this.items[i].price + 20;
+            this.total_price = Number(this.total_price) - Number(this.items[i].price + 20);
           }
           this.total_price+=this.items[i].fines;
         }
       }
       this.date = this.thaidate.transform(this.items[0].dor,"dd MMMM yyyy")
-    console.log(this.date)
+    console.log(this.total_price)
     })
 
   }

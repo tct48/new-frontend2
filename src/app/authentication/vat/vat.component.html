@@ -95,7 +95,8 @@
             <tr *ngFor="let data of items;let i = index;">
               <td [tooltip]="thaidate.transform(data.dor,'dd MMMM yyyy')" *ngIf="!data.fines" [ngClass]="{'py-0 my-0':data.fines!=0}">
                 <!-- {{thaidate.transform(data.dor,'dd MMMM yyyy') }} -->
-                {{ data.dor | date:'HH:MM a' }}
+                <!-- {{ data.dor | date:'HH:MM a' }} -->
+                x
               </td>
               <td  class="py-2" *ngIf="!data.fines">
                 {{ data.title }} <span class="text-info">({{ returnCategory(data.type) }})</span>

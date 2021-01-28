@@ -83,8 +83,7 @@ export class SummarizeComponent implements OnInit {
   }
 
   onChangeCompany(name: string, company: number) {
-    this.company = name;
-    console.log("type : " + this.type)
+   
     if(this.type==1)
     this.onLoadItems(company);
     else
@@ -150,7 +149,6 @@ export class SummarizeComponent implements OnInit {
     this.summary.getLast15Day(company).then(result => {
       this.items = result.items;
       this.total_items = result.items.length;
-      console.log(result);
       // ข้อมูลสำหรับการฟแท่ง
       let data = [{
         data: [],
