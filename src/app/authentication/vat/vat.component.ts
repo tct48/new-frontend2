@@ -37,7 +37,7 @@ export class VatComponent implements OnInit {
     date: this.datePipe.transform(new Date(), "d"),
     month: this.datePipe.transform(new Date(), "M"),
     year: this.datePipe.transform(new Date(), "yyyy"),
-    filter: this.company,
+    company: this.company,
   }
   UserLogin: any;
 
@@ -100,6 +100,7 @@ export class VatComponent implements OnInit {
   onSubmit() {
     this.total_price = 0;
     this.items = [];
+    console.log(this.model)
     if (Number(this.model.year) > 2500) {
       this.model.year = (Number(this.model.year) - 543) + ""
     }

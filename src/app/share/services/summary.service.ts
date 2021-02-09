@@ -23,7 +23,7 @@ export class SummaryService {
     }
 
     getVat(model:any){
-        let url = `receipt/_get_daily.php?date=${model.date}&month=${model.month}&year=${model.year}`;
+        let url = `receipt/_get_daily.php?date=${model.date}&month=${model.month}&year=${model.year}&company=${model.company}`;
         console.log(url);
       return this.http.requestGet(url,this.authen.getAuthenticated())
         .toPromise() as Promise<any>
