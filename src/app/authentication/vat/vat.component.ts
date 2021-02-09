@@ -145,6 +145,4 @@ export class VatComponent implements OnInit {
       return "รถตู้ส่วนบุคคล"
     }
   }
-
-
 }
