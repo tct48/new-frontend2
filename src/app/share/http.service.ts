@@ -13,9 +13,10 @@ import {
 })
 export class HttpService {
     constructor(private http: HttpClient) {}
-     
+
     // private address: string = 'https://deejung.herokuapp.com/'
     private address : string = "http://www.dee-jung.com/api/"
+    // private address:string = "http://localhost/NewBackend/api/"
 
     //Request GET method
     requestGet(url: string, accessToken?: string) {

@@ -158,12 +158,12 @@
                 ฿ {{ data.total | number:'1.2-2' }}
               </td>
               <td class="text-right" style="white-space: nowrap;">
-                <span *ngIf="data.detuct_cash">
-                  ฿ {{ data.detuct_cash | number:'1.2-2' }}
+                <span *ngIf="data.detuct">
+                  ฿ {{ data.detuct | number:'1.2-2' }}
                 </span>
               </td>
               <td class="text-right" style="white-space: nowrap;">
-                <span *ngIf="data.detuct_cash">
+                <span *ngIf="data.balance">
                   ฿ {{ data.balance | number:'1.2-2' }}
                 </span>
               </td>
@@ -237,6 +237,9 @@
                     <span class="text-success">
                       ฿ {{ report.total-report.bank-report.detuct_cash | number: '1.2-2' }}
                     </span>
+                  </td>
+                  <td>
+                    ฿ {{ report.bank-report.detuct_bank + report.total-report.bank-report.detuct_cash | number:'1.2-2' }}
                   </td>
                 </tr>
               </tbody>

@@ -73,15 +73,17 @@ export class ReportComponent implements OnInit {
 
       this.clearReport();
       console.log(this.items[0])
+      console.log(result)
 
       for (var i = 0; i < this.total_items; i++) {
         this.report.total = Number(this.report.total) + Number(this.items[i].total);
-        if (this.items[i].status == "เงินสด")
-          this.report.detuct_cash = Number(this.report.total) + Number(this.items[i].detuct);
+        if (this.items[i].status == "เงินสด"){
+          this.report.detuct_cash += Number(this.items[i].detail_detuct);
+        }
         else
-          this.report.detuct_bank = Number(this.report.detuct_bank) + Number(this.items[i].detuct);
+          this.report.detuct_bank = Number(this.report.detuct_bank) + Number(this.items[i].detail_detuct);
         if (this.items[i].status == 'เงินสด') {
-          this.report.cash = Number(this.report.cash) + Number(this.items[i].total);
+          this.report.cash = Number(this.report.cash) +  Number(this.items[i].total);
         } else if (this.items[i].status == 'โอนธนาคาร') {
           this.report.bank = Number(this.report.bank) + Number(this.items[i].total);
         }
@@ -97,14 +99,14 @@ export class ReportComponent implements OnInit {
       this.total_price = 0;
       this.total_items = result.total_items;
       this.items = result.items;
-      console.log("new price");
-      console.log(this.items);
+      this.report.detuct_cash = 0;
       for (var i = 0; i < this.total_items; i++) {
         this.report.total = Number(this.report.total) + Number(this.items[i].total);
-        if (this.items[i].status == "เงินสด")
-          this.report.detuct_cash = Number(this.report.detuct_cash) + Number(this.items[i].detuct);
+        if (this.items[i].status == "เงินสด"){
+          this.report.detuct_cash += Number(this.items[i].detail_detuct);
+        }
         else
-          this.report.detuct_bank = Number(this.report.detuct_bank) + Number(this.items[i].detuct);
+          this.report.detuct_bank = Number(this.report.detuct_bank) + Number(this.items[i].detail_detuct);
         if (this.items[i].status == 'เงินสด') {
           this.report.cash = Number(this.report.cash) +  Number(this.items[i].total);
         } else if (this.items[i].status == 'โอนธนาคาร') {

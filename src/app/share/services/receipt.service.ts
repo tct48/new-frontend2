@@ -41,9 +41,9 @@ export class ReceiptService {
   loadDaily(model?:any){
     var url;
     if(model)
-    url=`receipt/_get_daily.php?company=${model.filter}&date=${model.date}&month=${model.month}&year=${model.year}`;
+    url=`receipt/_get_daily2.php?company=${model.filter}&date=${model.date}&month=${model.month}&year=${model.year}`;
     else
-    url="receipt/_get_daily"
+    url="receipt/_get_daily2.php"
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>;
   }
 

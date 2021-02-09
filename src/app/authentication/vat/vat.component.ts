@@ -30,16 +30,16 @@ export class VatComponent implements OnInit {
   }
 
   company: any = localStorage.getItem("company");
-  date: any = this.thaidate.transform(new Date()+"", "dd MMMM yyyy");
+  date: any = this.thaidate.transform(new Date() + "", "dd MMMM yyyy");
   items: any;
   total_price: number;
-  model={
-    date:this.datePipe.transform(new Date(),"d"),
-    month:this.datePipe.transform(new Date(),"M"),
-    year:this.datePipe.transform(new Date(),"yyyy"),
-    filter:this.company,
+  model = {
+    date: this.datePipe.transform(new Date(), "d"),
+    month: this.datePipe.transform(new Date(), "M"),
+    year: this.datePipe.transform(new Date(), "yyyy"),
+    filter: this.company,
   }
-  UserLogin:any;
+  UserLogin: any;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -69,21 +69,14 @@ export class VatComponent implements OnInit {
     this.total_price = 0;
     this.summary.getVat(this.model).then(result => {
       this.items = result.items;
+      console.log(result)
+      let b = 0;
+      let c = 0;
 
       for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].type == 3) {
-          this.total_price += this.items[i].price + 10;
-        } else {
-          this.total_price += this.items[i].price + 20;
-        }
-        if(this.items[i].fines!=0){
-          if (this.items[i].type == 3) {
-            this.total_price -= this.items[i].price + 10;
-          } else {
-            this.total_price -= this.items[i].price + 20;
-          }
-          this.total_price+=this.items[i].fines;
-        }
+        this.total_price += this.ConvertNumber(this.items[i].vat);
+        b += this.ConvertNumber(this.items[i].fines);
+        c += this.ConvertNumber(this.items[i].etc);
       }
     }).catch(err => {
       console.log(err)
@@ -99,45 +92,40 @@ export class VatComponent implements OnInit {
 
   }
 
-  onSubmit(){
+  ConvertNumber(x: number) {
+    let c : number = Number(x);
+    return c;
+  }
+
+  onSubmit() {
     this.total_price = 0;
-    this.items=[];
-    if(Number(this.model.year)>2500){
-      this.model.year=(Number(this.model.year) - 543) +""
+    this.items = [];
+    if (Number(this.model.year) > 2500) {
+      this.model.year = (Number(this.model.year) - 543) + ""
     }
-    this.summary.getVat(this.model).then(result=>{
+    this.summary.getVat(this.model).then(result => {
       this.items = result.items;
-      console.log(this.items);
+      console.log(result)
+      let b = 0;
+      let c = 0;
 
       for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].type == 3) {
-          this.total_price = Number(this.total_price) +  Number(this.items[i].price + 10);
-        } else {
-          this.total_price = Number(this.total_price) +  Number(this.items[i].price + 20);
-        }
-        if(this.items[i].fines!=0){
-          if (this.items[i].type == 3) {
-            this.total_price = Number(this.total_price) - Number(this.items[i].price + 10);
-          } else {
-            this.total_price = Number(this.total_price) - Number(this.items[i].price + 20);
-          }
-          this.total_price+=this.items[i].fines;
-        }
+        this.total_price += this.ConvertNumber(this.items[i].vat);
+        b += this.ConvertNumber(this.items[i].fines);
+        c += this.ConvertNumber(this.items[i].etc);
       }
-      this.date = this.thaidate.transform(this.items[0].dor,"dd MMMM yyyy")
-    console.log(this.total_price)
     })
 
   }
 
-  onPrint(){
+  onPrint() {
     window.print();
   }
 
-  returnCompany(_id:number){
-    if(_id==1){
+  returnCompany(_id: number) {
+    if (_id == 1) {
       return "ดีจัง"
-    }else if(_id==2){
+    } else if (_id == 2) {
       return "ดีจ้า"
     }
   }

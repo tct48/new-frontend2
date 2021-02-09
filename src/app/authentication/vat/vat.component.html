@@ -93,60 +93,24 @@
           </thead>
           <tbody *ngIf="items">
             <tr *ngFor="let data of items;let i = index;">
-              <td [tooltip]="thaidate.transform(data.dor,'dd MMMM yyyy')" *ngIf="!data.fines" [ngClass]="{'py-0 my-0':data.fines!=0}">
+              <td [tooltip]="thaidate.transform(data.dor,'dd MMMM yyyy')" [ngClass]="{'py-0 my-0':data.fines!=0}">
                 <!-- {{thaidate.transform(data.dor,'dd MMMM yyyy') }} -->
-                <!-- {{ data.dor | date:'HH:MM a' }} -->
-                x
+                {{ data.dor | date:'HH:MM a' }}
               </td>
-              <td  class="py-2" *ngIf="!data.fines">
-                {{ data.title }} <span class="text-info">({{ returnCategory(data.type) }})</span>
+              <td  class="py-2" >
+                {{ data.title }} <span class="text-info">({{ data.type }})</span>
               </td>
-              <td class="text-right py-2" *ngIf="!data.fines">
-                ฿ {{ data.price | number:'1.2-2' }}
+              <td class="text-right py-2">
+                ฿ {{ data.vat }}
               </td>
-              <td class="text-right text-primary py-2" *ngIf="!data.fines">
-                  <span *ngIf="items[i+1]">
-                    <span *ngIf="items[i+1].fines!=0">
-                      + ฿ {{ items[i+1].fines | number:'1.2-2' }}
-                    </span>
-                    <span *ngIf="items[i+1].fines==0">
-                      + ฿ {{ data.fines | number:'1.2-2' }}
-                    </span>
-                  </span>
-                  <span *ngIf="!items[i+1]">
-                    <span *ngIf="items[i].fines!=0">
-                      + ฿ {{ data.fines | number:'1.2-2' }}
-                    </span>
-                    <span *ngIf="items[i].fines==0">
-                      + ฿ {{ data.fines | number:'1.2-2' }}
-                    </span>
-                  </span>
+              <td class="text-right text-primary py-2">
+                ฿ {{ ConvertNumber(data.fines) | number:'1.2-2' }}
               </td>
-              <td class="text-right text-success py-2" *ngIf="!data.fines">
-                <span *ngIf="data.type==3 && data.fines==0">
-                  + ฿ 10.00
-                </span>
-                <span *ngIf="data.type!=3 && data.fines==0">
-                  + ฿ 20.00
-                </span>
+              <td class="text-right text-success py-2">
+                ฿ {{ ConvertNumber(data.etc) | number:'1.2-2' }}
               </td>
-              <td class="text-right py-2" style="font-weight: bolder;" *ngIf="!data.fines">
-                <span *ngIf="items[i+1]">
-                  <span *ngIf="data.type==3">
-                    ฿ {{ data.price +10 + items[i+1].fines | number:'1.2-2' }}
-                  </span>
-                  <span *ngIf="data.type!=3">
-                    ฿ {{ data.price +20 + items[i+1].fines | number:'1.2-2' }}
-                  </span>
-                </span>
-                <span *ngIf="!items[i+1]">
-                  <span *ngIf="data.type==3">
-                    ฿ {{ data.price +10 + data.fines | number:'1.2-2' }}
-                  </span>
-                  <span *ngIf="data.type!=3">
-                    ฿ {{ data.price +20 + data.fines | number:'1.2-2' }}
-                  </span>
-                </span>
+              <td class="text-right py-2" style="font-weight: bolder;">
+                ฿ {{ data.total | number:'1.2-2' }}
               </td>
             </tr>
             <tr class="bolder table-dark" style="font-weight: bolder;">
