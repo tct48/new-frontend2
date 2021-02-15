@@ -327,6 +327,7 @@ export class BillComponent implements OnInit {
   onPrint(_id: number) {
     this.receipt_service.loadReceiptByID(_id).then(result => {
       let receipt = result.receipt[0];
+      console.log(result)
       let detail = result.detail;
 
       receipt.type = this.returnCategory(receipt.type);
