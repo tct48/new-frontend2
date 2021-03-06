@@ -72,9 +72,6 @@ export class BillComponent implements OnInit {
       return this.alert.notify("กรุณากรอกข้อมูลหัวใบเสร็จก่อน !")
     }
 
-    if (this.view == true) {
-      // return this.alert.notify("ไม่สามารถแก้ไขข้อมูลใบเสร็จได้ กรุณาลบและเพิ่มข้อมูลใหม่!")
-    }
     let price: number = null;
     let a: number = null, b: number = null, c: number = null;;
     // ตรวจสภาพรถกระบะ กับตู้ 200 มอไซ 60
@@ -309,12 +306,24 @@ export class BillComponent implements OnInit {
     }
 
     this.receipt_service.loadReceiptByID(_id).then(result => {
-
       this.view = true;
-      this.receipt = result.receipt[0];
+
+      this.receipt._id = result.receipt[0]._id;
+      this.receipt.receipt_no = result.receipt[0].receipt_no; // A
+      this.receipt.customer = result.receipt[0].customer;
+      this.receipt.dor = result.receipt[0].dor;
+      this.receipt.title = result.receipt[0].title;
+      this.receipt.type = result.receipt[0].type;
+      this.receipt.company = result.receipt[0].company;
+      this.receipt.cc = result.receipt[0].cc;
+      this.receipt.weight = result.receipt[0].weight;
+      this.receipt.year = result.receipt[0].year;
+      this.receipt.member = result.receipt[0].member;
+      this.receipt.total = result.receipt[0].total;
+      this.receipt.address = result.receipt[0].address;
+
       this.detail = result.detail;
       this.receipt.type = this.returnCategory(this.receipt.type);
-      console.log(result);
 
       document.querySelector('#billing').scrollIntoView({
         behavior: 'smooth'
@@ -325,6 +334,7 @@ export class BillComponent implements OnInit {
   }
 
   onPrint(_id: number) {
+    console.log(_id);
     this.receipt_service.loadReceiptByID(_id).then(result => {
       let receipt = result.receipt[0];
       console.log(result)
@@ -335,20 +345,6 @@ export class BillComponent implements OnInit {
     })
   }
 
-
-  // returnCategory(_id: number) {
-  //   if (_id == 1) {
-  //     return "กระบะบรรทุก";
-  //   } else if (_id == 2) {
-  //     return "ตู้บรรทุก";
-  //   } else if (_id == 3) {
-  //     return "มอเตอร์ไซค์"
-  //   } else if (_id == 4) {
-  //     return "รถตู้ส่วนบุคคล"
-  //   } else if (_id == 5) {
-  //     return "รถยนต์ 4 ประตู"
-  //   }
-  // }
 
   onSubmit() {
     if (this.receipt.type == null || this.detail.length == 0 || this.receipt.name) {
@@ -366,11 +362,10 @@ export class BillComponent implements OnInit {
     } else if (this.receipt.type == "รถตู้ส่วนบุคคล") {
       this.receipt.type = 5;
     }
-
-    console.log(this.receipt);
-    this.receipt.receipt_no=1;
+    this.receipt.company = localStorage.getItem("company");
 
     this.receipt_service.insertReceipt(this.receipt).then((result) => {
+      console.log(result);
       this.receipt_service
         .insertReceiptDetail(result._id, this.detail)
         .then((result) => {
@@ -431,12 +426,14 @@ export class BillComponent implements OnInit {
     }
   }
 
+  search:boolean = false
+
   onSearch() {
     if (!this.filter) {
       this.alert.notify("กรุณาระบุบริษัท")
       return;
     }
-
+    this.search=true;
     if (this.UserLogin.role == 1)
       this.option.company = Number(this.filter);
     this.receipt_service.searchReceipt(this.option).then(result => {

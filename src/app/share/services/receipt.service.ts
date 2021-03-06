@@ -12,7 +12,6 @@ export class ReceiptService {
 
   insertReceipt(model: any) {
     let url = `receipt/_post.php`;
-    console.log(model);
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
@@ -24,8 +23,6 @@ export class ReceiptService {
 
   insertReceiptDetail(_id: number, model: any) {
     let url = `receipt/_post_detail.php?_id=` + _id;
-    console.log(model);
-    console.log(url);
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
