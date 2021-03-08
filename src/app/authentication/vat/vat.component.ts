@@ -69,12 +69,15 @@ export class VatComponent implements OnInit {
     this.total_price = 0;
     this.summary.getVat(this.model).then(result => {
       this.items = result.items;
+      console.log("BEC")
       console.log(result)
       let b = 0;
       let c = 0;
 
       for (let i = 0; i < this.items.length; i++) {
-        this.total_price += this.ConvertNumber(this.items[i].vat);
+        if(this.items[i].vat){
+          this.total_price+=this.ConvertNumber(this.items[i].detuct);
+        }
         b += this.ConvertNumber(this.items[i].fines);
         c += this.ConvertNumber(this.items[i].etc);
       }
