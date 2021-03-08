@@ -93,24 +93,24 @@
           </thead>
           <tbody *ngIf="items">
             <tr *ngFor="let data of items;let i = index;">
-              <td [tooltip]="thaidate.transform(data.dor,'dd MMMM yyyy')" [ngClass]="{'py-0 my-0':data.fines!=0}">
+              <td *ngIf="data.vat" [tooltip]="thaidate.transform(data.dor,'dd MMMM yyyy')" [ngClass]="{'py-0 my-0':data.fines!=0}">
                 <!-- {{thaidate.transform(data.dor,'dd MMMM yyyy') }} -->
                 {{ data.dor | date:'HH:MM a' }}
               </td>
-              <td  class="py-2" >
+              <td *ngIf="data.vat"  class="py-2" >
                 {{ data.title }} <span class="text-info">({{ data.type }})</span>
               </td>
-              <td class="text-right py-2">
+              <td *ngIf="data.vat" class="text-right py-2">
                 ฿ {{ data.vat }}
               </td>
-              <td class="text-right text-primary py-2">
-                ฿ {{ ConvertNumber(data.fines) | number:'1.2-2' }}
+              <td *ngIf="data.vat" class="text-right text-primary py-2">
+                ฿ {{ data.detuct - data.vat | number:'1.2-2' }}
               </td>
-              <td class="text-right text-success py-2">
+              <td *ngIf="data.vat" class="text-right text-success py-2">
                 ฿ {{ ConvertNumber(data.etc) | number:'1.2-2' }}
               </td>
-              <td class="text-right py-2" style="font-weight: bolder;">
-                ฿ {{ data.total | number:'1.2-2' }}
+              <td *ngIf="data.vat" class="text-right py-2" style="font-weight: bolder;">
+                ฿ {{ data.detuct | number:'1.2-2' }}
               </td>
             </tr>
             <tr class="bolder table-dark" style="font-weight: bolder;">

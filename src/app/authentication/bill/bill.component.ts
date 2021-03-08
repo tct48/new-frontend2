@@ -363,11 +363,12 @@ export class BillComponent implements OnInit {
       this.receipt.type = 5;
     }
     this.receipt.company = localStorage.getItem("company");
-
+    console.log(this.receipt);
     this.receipt_service.insertReceipt(this.receipt).then((result) => {
       console.log(result);
+      console.log(this.detail);
       this.receipt_service
-        .insertReceiptDetail(result._id, this.detail)
+        .insertReceiptDetail(result._id+1, this.detail)
         .then((result) => {
           this.onLoadReceipt();
           this.clearModel();
