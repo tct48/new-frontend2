@@ -10,13 +10,12 @@ import { OptionSearch } from './member.service';
 export class ReceiptService {
   constructor(private authen: AuthenService, private http: HttpService) { }
 
-  insertReceipt(model: any) {
+  insertReceipt(model: any) { 
     let url = `receipt/_post.php`;
-    console.log(model);
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
-  }
-
+  } 
+ 
   deleteReceiptDetail(_id:string){
     let url = `receipt/_delete.php?detail=del`;
     return this.http.requestPost(url,{_id: _id}).toPromise() as Promise<any>
@@ -24,8 +23,8 @@ export class ReceiptService {
 
   insertReceiptDetail(_id: number, model: any) {
     let url = `receipt/_post_detail.php?_id=` + _id;
-    console.log(model);
     console.log(url);
+    console.log(model);
     return this.http.requestPost(url, model)
       .toPromise() as Promise<any>
   }
@@ -81,6 +80,7 @@ export class ReceiptService {
 
   loadReceiptByID(_id: number) {
     let url = 'receipt/_get.php?_id=' + _id;
+    console.log(url);
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 

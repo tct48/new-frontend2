@@ -79,10 +79,10 @@ export class BillComponent implements OnInit {
     let a: number = null, b: number = null, c: number = null;;
     // ตรวจสภาพรถกระบะ กับตู้ 200 มอไซ 60
     if (data == "ตรวจสภาพรถ") {
-      if (this.receipt.type != "มอเตอร์ไซค์")
+      if (this.receipt.type == "มอเตอร์ไซค์")
+        price = 60;
+      else
         price = 200;
-      else if (this.receipt.type == "มอเตอร์ไซค์")
-        price = 60
     } else if (data == "พรบ") { //ถ้าพรบกะบะ 960 ตู้ 1180 เก๋ง 500
       if (this.receipt.type == "กระบะบรรทุก")
         price = 960;
@@ -116,27 +116,15 @@ export class BillComponent implements OnInit {
 
     if (data == "ภาษี") {
       if (this.receipt.type == "รถยนต์ 4 ประตู") {
-        if (this.receipt.cc >= 600) {
-          a = 300;
+        if (this.receipt.cc >= 0 && this.receipt.cc<=600) {
+          price = Number(this.receipt.cc)*0.5;
+        }else if (this.receipt.cc <= 1800) {
+          price=300
+          price = price + (Number(this.receipt.cc) - 600) * 1.5;
         } else {
-          price = Number(this.receipt.cc) * 0.5;
-          a = price;
-        }
-
-        if (this.receipt.cc >= 1800) {
-          b = 1800
-        } else {
-          price = (Number(this.receipt.cc) - 600) * 1.5;
-          b = price;
-        }
-
-
-        if (this.receipt.cc >= 1801) {
           price = (Number(this.receipt.cc) - 1800) * 4;
-          c = price;
+          price +=1800+300;
         }
-
-        price = Math.round(a + b + c);
 
         if (this.receipt.year == 6) {
           price *= 0.9;
@@ -149,6 +137,7 @@ export class BillComponent implements OnInit {
         } else if (this.receipt.year >= 10) {
           price *= 0.5;
         }
+        price = Math.round(price);
       }
 
       if (this.receipt.type == "กระบะบรรทุก" || this.receipt.type == "ตู้บรรทุก") {
@@ -301,12 +290,20 @@ export class BillComponent implements OnInit {
   }
 
   onView(_id: number) {
-    if (_id == this.receipt._id) {
-      document.querySelector('#billing').scrollIntoView({
-        behavior: 'smooth'
-      });
-      return;
+    try{
+      if (_id == this.receipt._id) {
+        document.querySelector('#billing').scrollIntoView({
+          behavior: 'smooth'
+        });
+        return;
+      }
+    }catch(err){
+
     }
+    
+
+    // console.log(_id);
+    // return;
 
     this.receipt_service.loadReceiptByID(_id).then(result => {
 
@@ -320,11 +317,13 @@ export class BillComponent implements OnInit {
         behavior: 'smooth'
       });
     }).catch(err => {
+      console.log(err);
       this.alert.notify("เกิดข้อผิดพลาดไม่สามารถเปิดดูข้อมูลได้!")
     })
   }
 
   onPrint(_id: number) {
+    console.log(_id);
     this.receipt_service.loadReceiptByID(_id).then(result => {
       let receipt = result.receipt[0];
       let detail = result.detail;
@@ -366,10 +365,13 @@ export class BillComponent implements OnInit {
       this.receipt.type = 5;
     }
 
-    console.log(this.receipt);
+    // console.log(this.receipt);
+    // return;
     this.receipt.receipt_no=1;
+    this.receipt.company = localStorage.getItem("company");
 
-    this.receipt_service.insertReceipt(this.receipt).then((result) => {
+    this.receipt_service.insertReceipt(this.receipt).then(result => {
+      console.log(result);
       this.receipt_service
         .insertReceiptDetail(result._id, this.detail)
         .then((result) => {
@@ -702,7 +704,6 @@ export class BillComponent implements OnInit {
     this.receipt.dor = new Date(); // A
     this.receipt.title = null;
     this.receipt.type = null;
-    this.receipt.company = localStorage.getItem('company');
     this.receipt.cc = null;
     this.receipt.weight = null;
     this.receipt.year = null;
