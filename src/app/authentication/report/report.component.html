@@ -155,17 +155,45 @@
                 </span>
               </td>
               <td class="text-right" style="white-space: nowrap;">
-                ฿ {{ data.total | number:'1.2-2' }}
+                {{ data.total | number:'1.2-2' }}
               </td>
               <td class="text-right" style="white-space: nowrap;">
                 <span *ngIf="data.detuct">
-                  ฿ {{ data.detuct | number:'1.2-2' }}
+                 {{ data.detuct | number:'1.2-2' }}
                 </span>
               </td>
               <td class="text-right" style="white-space: nowrap;">
-                <span *ngIf="data.balance">
-                  ฿ {{ data.balance | number:'1.2-2' }}
+                <span *ngIf="!data.detuct">
+                 {{ data.total | number:'1.2-2' }}
                 </span>
+                <span *ngIf="data.detuct">
+                 {{ data.balance | number:'1.2-2' }}
+                </span>
+              </td>
+            </tr>
+            <tr style="font-weight: bold;">
+              <td colspan="5">
+                ยอดรวมวันที่ {{ now | date:'d MMMM y' }} เวลา {{ now | date:' h:mm:ss a' }} :
+              </td>
+              <td class="text-right">
+                {{ report.check | number :'1.2-2' }}
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right">
+                {{ report.total | number :'1.2-2' }}
+              </td>
+              <td class="text-right">
+                {{ report.detuct_cash + report.detuct_bank | number: '1.2-2' }}
+              </td>
+              <td class="text-right">
+                {{ report.bank-report.detuct_bank + report.total-report.bank-report.detuct_cash | number:'1.2-2' }}
               </td>
             </tr>
           </tbody>

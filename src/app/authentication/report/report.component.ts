@@ -12,7 +12,7 @@ import * as XLSX from "xlsx";
   providers: [DatePipe, ThaidatePipe]
 })
 export class ReportComponent implements OnInit {
-
+  public now: Date = new Date();
   constructor(
     private receipt: ReceiptService,
     public datePipe: DatePipe,
@@ -20,6 +20,7 @@ export class ReportComponent implements OnInit {
   ) {
     this.UserLogin = this.authen.setUserLogin();
     this.loadItems();
+    this.now = new Date();
   }
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class ReportComponent implements OnInit {
     filter: this.company,
   }
   total_price: Number = 0;
+  hidden:boolean = true;
 
   fileName = "รายงานบัญชีรายวัน " + this.model.date + " - " + this.model.month + " - " + (Number(this.model.year) + 543) + ".xlsx"
 
@@ -44,7 +46,9 @@ export class ReportComponent implements OnInit {
     detuct_bank: 0,
     balance: 0,
     cash: 0,
-    bank: 0
+    bank: 0,
+    // ตรวจสภาพ
+    check:0,
   };
 
   exportexcel(): void {
@@ -63,6 +67,7 @@ export class ReportComponent implements OnInit {
     this.report.balance = 0;
     this.report.cash = 0;
     this.report.bank = 0;
+    this.report.check = 0;
   }
 
   loadItems() {
@@ -77,6 +82,8 @@ export class ReportComponent implements OnInit {
 
       for (var i = 0; i < this.total_items; i++) {
         this.report.total = Number(this.report.total) + Number(this.items[i].total);
+        // ตรวจสถาพทั้งหมด
+        this.report.check = Number(this.report.check) + Number(this.items[i].inspection);
         if (this.items[i].status == "เงินสด"){
           this.report.detuct_cash += Number(this.items[i].detail_detuct);
         }
@@ -102,6 +109,7 @@ export class ReportComponent implements OnInit {
       this.report.detuct_cash = 0;
       for (var i = 0; i < this.total_items; i++) {
         this.report.total = Number(this.report.total) + Number(this.items[i].total);
+        this.report.check = Number(this.report.check) + Number(this.items[i].inspection);
         if (this.items[i].status == "เงินสด"){
           this.report.detuct_cash += Number(this.items[i].detail_detuct);
         }
@@ -125,5 +133,6 @@ export interface IReport {
   detuct_bank: number,
   balance: number,
   bank: number,
-  cash: number
+  cash: number,
+  check: number,
 }
