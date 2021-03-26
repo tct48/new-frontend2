@@ -9,6 +9,7 @@ import { UserRoleGuard } from '../guard/user-role.guard';
 import { VatComponent } from './vat/vat.component';
 import { ReportComponent } from './report/report.component';
 import { TrashComponent } from './trash/trash.component';
+import { FeedbackComponent } from "./feedback/feedback.component";
 
 const RouterLists : Routes = [
   { path:'', redirectTo: AuthURL.Bill,pathMatch:'full' },
@@ -18,7 +19,8 @@ const RouterLists : Routes = [
   { path: AuthURL.Summarize, component: SummarizeComponent,canActivate:[UserRoleGuard],data:{roles:[1,2,3]} },
   { path: AuthURL.Vat, component: VatComponent, canActivate:[UserRoleGuard], data:{roles:[1,2,3]} },
   { path: AuthURL.Report, component: ReportComponent, canActivate:[UserRoleGuard], data:{roles:[1,2,3]} },
-  { path: AuthURL.Trash, component: TrashComponent, canActivate:[UserRoleGuard], data:{roles:[1]} }
+  { path: AuthURL.Trash, component: TrashComponent, canActivate:[UserRoleGuard], data:{roles:[1]} },
+  { path: AuthURL.Feedback, component: FeedbackComponent, canActivate:[UserRoleGuard], data:{roles:[1]} }
 ]
 
 export const AuthenticationRouting = RouterModule.forChild(RouterLists);

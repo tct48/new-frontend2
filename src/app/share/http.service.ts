@@ -53,6 +53,7 @@ export class HttpService {
 
     //Request Delete method
     requestDelete(url: string, accessToken?: string) {
+        console.log(url);
         return this.http
             .delete(`${this.address}${url}`, {
                 headers: this.appendHeaders(accessToken),

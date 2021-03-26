@@ -37,6 +37,11 @@ export class ReceiptService {
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>;
   }
 
+  loadFeedback() {
+    let url = `receipt/_get_feedback.php`;
+    return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>;
+  }
+
   loadDaily(model?:any){
     var url;
     if(model)
@@ -53,6 +58,11 @@ export class ReceiptService {
 
   loadTrash(){
     let url='receipt/_trash.php';
+    return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
+  }
+
+  loadTrashSpecific(model:any){
+    let url=`receipt/_trash.php?date=${model.date}&month=${model.month}&year=${model.year}&company=${model.company}`;
     return this.http.requestGet(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 
@@ -94,7 +104,7 @@ export class ReceiptService {
   }
 
   deleteFromTrash(_id:number){
-    let url = `receipt/${_id}`;
+    let url = `receipt/_delete.php?FXS=${_id}`;
     return this.http.requestDelete(url, this.authen.getAuthenticated()).toPromise() as Promise<any>
   }
 

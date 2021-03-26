@@ -35,13 +35,16 @@
                 <a class="nav-link" [routerLink]="['/authentication/summarize']" routerLinkActive="active">สรุปยอด <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item hover">
-              <a class="nav-link" [routerLink]="['/authentication/vat']" routerLinkActive="active">รายงานภาษี <span class="sr-only">(current)</span></a>
+              <a class="nav-link" [routerLink]="['/authentication/vat']" routerLinkActive="active">ภาษี <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item hover">
-              <a class="nav-link" [routerLink]="['/authentication/report']" routerLinkActive="active">รายงานบัญชีรายวัน <span class="sr-only">(current)</span></a>
+              <a class="nav-link" [routerLink]="['/authentication/report']" routerLinkActive="active">บัญชีรายวัน <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item hover" *ngIf="UserLogin.role==1">
-              <a class="nav-link" tooltip="เฉพาะผู้ดูแล" [routerLink]="['/authentication/trash']" routerLinkActive="active">รายงานการยกเลิกใบเสร็จ <span class="sr-only">(current)</span></a>
+              <a class="nav-link" tooltip="เฉพาะผู้ดูแล" [routerLink]="['/authentication/trash']" routerLinkActive="active">ยกเลิกใบเสร็จ <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item hover" *ngIf="UserLogin.role==1">
+              <a class="nav-link" tooltip="เฉพาะผู้ดูแล" [routerLink]="['/authentication/feedback']" routerLinkActive="active">ติดตามลูกค้า <span class="sr-only">(current)</span></a>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">

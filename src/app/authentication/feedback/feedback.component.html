@@ -1,0 +1,40 @@
+<app-auth-content>
+    <div class="card my-3">
+      <div class="card-body">
+        <h4 class="boler" style="font-weight: bolder;">ติดตามลูกค้า</h4>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">เวลา</th>
+                <th scope="col">ชื่อลูกค้า</th>
+                <th scope="col">เลขทะเบียน</th>
+                <th scope="col">การชำระเงิน</th>
+                <th scope="col">ประเภทรถ</th>
+                <th scope="col">ยอดรวม</th>
+                <th scope="col">จัดการข้อมูล</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="!item">
+                    <td colspan="8" class="text-center">
+                        ยังไม่มีรายการใกล้ครบ 1 ปี
+                    </td>
+                </tr>
+                <tr *ngIf="item">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </app-auth-content>
+  
+  

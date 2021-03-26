@@ -72,6 +72,8 @@
               <th rowspan="2" class="text-center px-3"
                 style="white-space: nowrap;vertical-align: middle;font-weight: bold;">ช่องทางชำระเงิน</th>
               <th rowspan="2" class="text-center px-3"
+                style="white-space: nowrap;vertical-align: middle;font-weight: bold;">ออกโดย</th>
+              <th rowspan="2" class="text-center px-3"
                 style="white-space: nowrap;vertical-align: middle;font-weight: bold;">ประเภทรถ</th>
               <th colspan="9" class="text-center">ค่าบริการ</th>
               <th rowspan="2" class="text-center px-3"
@@ -96,7 +98,7 @@
           <tbody>
             <tr *ngFor="let data of items; let i=index;">
               <td>{{ i+1 }}</td>
-              <td>{{ data.dor | date:'HH:MM a' }}</td>
+              <td>{{ data.dor | date:'HH:mm a' }}</td>
               <td>{{ data.title }}</td>
               <td style="white-space: nowrap;">
                 <button *ngIf="data.status=='เงินสด'" class="btn badge-pill btn-success btn-sm">
@@ -108,6 +110,7 @@
                   โอนธนาคาร
                 </button>
               </td>
+              <td style="white-space: nowrap;">{{ data.name }}</td>
               <td style="white-space: nowrap;">{{ data.type }}</td>
               <td class="text-right" style="white-space: nowrap;">
                 <span *ngIf="data.inspection">
@@ -159,15 +162,15 @@
               </td>
               <td class="text-right" style="white-space: nowrap;">
                 <span *ngIf="data.detuct">
-                 {{ data.detuct | number:'1.2-2' }}
+                  {{ data.detuct | number:'1.2-2' }}
                 </span>
               </td>
               <td class="text-right" style="white-space: nowrap;">
                 <span *ngIf="!data.detuct">
-                 {{ data.total | number:'1.2-2' }}
+                  {{ data.total | number:'1.2-2' }}
                 </span>
                 <span *ngIf="data.detuct">
-                 {{ data.balance | number:'1.2-2' }}
+                  {{ data.balance | number:'1.2-2' }}
                 </span>
               </td>
             </tr>
@@ -267,7 +270,8 @@
                     </span>
                   </td>
                   <td>
-                    ฿ {{ report.bank-report.detuct_bank + report.total-report.bank-report.detuct_cash | number:'1.2-2' }}
+                    ฿ {{ report.bank-report.detuct_bank + report.total-report.bank-report.detuct_cash | number:'1.2-2'
+                    }}
                   </td>
                 </tr>
               </tbody>

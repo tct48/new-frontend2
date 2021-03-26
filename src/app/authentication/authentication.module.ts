@@ -12,10 +12,11 @@ import { DateAgoPipe } from '../share/services/date-ago.pipe';
 import { VatComponent } from './vat/vat.component';
 import { ReportComponent } from './report/report.component';
 import { TrashComponent } from './trash/trash.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 @NgModule({
-  declarations: [BillComponent, MemberComponent, PromotionComponent, SummarizeComponent,DateAgoPipe, VatComponent, ReportComponent, TrashComponent],
+  declarations: [BillComponent, MemberComponent, PromotionComponent, SummarizeComponent,DateAgoPipe, VatComponent, ReportComponent, TrashComponent, FeedbackComponent],
   imports: [
     CommonModule,
     FormsModule,

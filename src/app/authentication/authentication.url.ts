@@ -5,5 +5,6 @@ export const  AuthURL = {
     Summarize: 'summarize',
     Vat: 'vat',
     Report: 'report',
-    Trash: 'trash'
+    Trash: 'trash',
+    Feedback: 'feedback'
 }

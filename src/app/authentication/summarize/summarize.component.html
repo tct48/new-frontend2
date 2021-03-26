@@ -67,11 +67,12 @@
           <tbody>
             <tr *ngFor="let data of items;let i = index;">
               <td>
-                <span *ngIf="type==2">
+                <span *ngIf="type==2" [tooltip]="data.created | date:'(h:mm:ss a)'">
                   {{ thaidate.transform(data.dor,'MMMM') }}
+                  
                 </span>
-                <span *ngIf="type==1">
-                  {{ thaidate.transform(data.dor,'') }}
+                <span *ngIf="type==1" [tooltip]="data.created | date:'(h:mm:ss a)'">
+                  {{ thaidate.transform(data.dor | date:'dd MMMM yyyy') }}
                 </span>
               </td>
               <td class="text-right">
