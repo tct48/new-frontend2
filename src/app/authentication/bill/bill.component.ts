@@ -280,6 +280,7 @@ export class BillComponent implements OnInit {
   }
 
   onLoadReceipt() {
+    console.log(this.option);
     this.receipt_service.loadReceipt(this.option).then((result) => {
       this.total_items = result.total_items;
       this.items = result.items;
@@ -431,6 +432,8 @@ export class BillComponent implements OnInit {
   search:boolean = false
 
   onSearch() {
+    console.log("โปรดอย่ารักฉันเลย");
+    console.log(this.filter);
     if (!this.filter) {
       this.alert.notify("กรุณาระบุบริษัท")
       return;

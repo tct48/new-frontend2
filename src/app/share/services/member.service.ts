@@ -14,9 +14,14 @@ export class MemberService {
 
   loadMember(option:OptionSearch) {
     let url = `member/_get.php?sp=${option.sp}&lp=${option.lp}&company=${localStorage.getItem('company')}&role=${localStorage.getItem('role')}`;
-    console.log(url);
     return this.http.requestGet(url, this.authen.getAuthenticated())
       .toPromise() as Promise<any>
+  }
+
+  loadOperator(){
+    let url = `company/_get.php`;
+    return this.http.requestGet(url, this.authen.getAuthenticated())
+    .toPromise() as Promise<any>;
   }
 
   insertMember(model:any){

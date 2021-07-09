@@ -25,7 +25,13 @@ export class MemberComponent implements OnInit {
   ) {
     this.onLoadMember()
     this.UserLogin = this.authen.setUserLogin();
+    this.member.loadOperator().then(result=>{
+      console.log(result);
+      this.number_company = result.total_items;
+    })
   }
+
+  number_company:number;
 
   ngOnInit(): void {}
 

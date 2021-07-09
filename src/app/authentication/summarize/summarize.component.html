@@ -4,27 +4,29 @@
       สรุปยอด
     </div>
     <div class="card-body">
-    <!-- graph -->
+      <!-- graph -->
       <div>
         <div>
           <div style="display: block">
-            <canvas baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType">
+            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+              [legend]="barChartLegend" [chartType]="barChartType">
             </canvas>
           </div>
         </div>
       </div>
       <hr>
       <!-- ส่วนเลือกออฟิศ -->
-      <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==1" (click)="onChangeCompany('ดีจัง',1)" class="btn btn-outline-primary">
+      <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==1" (click)="onChangeCompany('ดีจัง',1)"
+        class="btn btn-outline-primary">
         ดีจัง
       </button>
-      <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==2" (click)="onChangeCompany('ดีจ้า',2)" class="btn btn-outline-primary mx-2">
+      <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==2" (click)="onChangeCompany('ดีจ้า',2)"
+        class="btn btn-outline-primary mx-2">
         ดีจ้า
+      </button>
+      <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==3" (click)="onChangeCompany('ดีจังหนองจอก',4)"
+        class="btn btn-outline-primary mx-2">
+        ดีจังหนองจอก
       </button>
       <!-- <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==3" (click)="onChangeCompany('ดีจังออโต้',3)" class="btn btn-outline-primary mr-2">
         ดีจ้าออโต้
@@ -35,11 +37,13 @@
 
       <div style="float:right;">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" [(ngModel)]="type" [ngModelOptions]="{standalone:true}" btnRadio=1 type="radio" name="category" (click)="onChangeDate('false')" checked>
+          <input class="form-check-input" [(ngModel)]="type" [ngModelOptions]="{standalone:true}" btnRadio=1
+            type="radio" name="category" (click)="onChangeDate('false')" checked>
           <label class="form-check-label text-muted" for="inlineRadio1">15 วันที่ผ่านมา</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" [(ngModel)]="type" [ngModelOptions]="{standalone:true}" btnRadio=2 type="radio" name="category" (click)="onChangeDate()">
+          <input class="form-check-input" [(ngModel)]="type" [ngModelOptions]="{standalone:true}" btnRadio=2
+            type="radio" name="category" (click)="onChangeDate()">
           <label class="form-check-label text-muted" for="inlineRadio2">เดือนที่ผ่านมา</label>
         </div>
       </div>
@@ -69,7 +73,7 @@
               <td>
                 <span *ngIf="type==2" [tooltip]="data.created | date:'(h:mm:ss a)'">
                   {{ thaidate.transform(data.dor,'MMMM') }}
-                  
+
                 </span>
                 <span *ngIf="type==1" [tooltip]="data.created | date:'(h:mm:ss a)'">
                   {{ thaidate.transform(data.dor | date:'dd MMMM yyyy') }}

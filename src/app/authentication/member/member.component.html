@@ -16,35 +16,20 @@
           <div class="row">
             <div class="col-md-6">
               <label for="exampleInputEmail1">ยูซเซอร์เนม</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="ตัวอย่าง : member01"
-                [(ngModel)]="IMember.username"
-                [ngModelOptions]="{standalone:true}"
-              />
+              <input type="text" class="form-control" placeholder="ตัวอย่าง : member01" [(ngModel)]="IMember.username"
+                [ngModelOptions]="{standalone:true}" />
             </div>
             <div class="col-md-6">
               <label for="exampleInputPassword1">รหัสผ่าน</label>
-              <input
-                type="password"
-                class="form-control"
-                placeholder="ตัวอย่าง : 123456"
-                [(ngModel)]="IMember.password"
-                [ngModelOptions]="{standalone:true}"
-              />
+              <input type="password" class="form-control" placeholder="ตัวอย่าง : 123456" [(ngModel)]="IMember.password"
+                [ngModelOptions]="{standalone:true}" />
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <label for="exampleInputEmail1">ชื่อจริง - นามสกุล</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="ชื่อจริง - นามสกุล"
-                [(ngModel)]="IMember.name"
-                [ngModelOptions]="{standalone:true}"
-              />
+              <input type="text" class="form-control" placeholder="ชื่อจริง - นามสกุล" [(ngModel)]="IMember.name"
+                [ngModelOptions]="{standalone:true}" />
             </div>
           </div>
           <div class="row">
@@ -53,39 +38,15 @@
                 สิทธิ์การใช้งาน : <span class="text-primary">{{ IMember.role }}</span>
               </p>
               <div class="btn-group">
-                <label
-                  class="btn btn-primary"
-                  name="role"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.role"
-                  btnRadio="ผู้ดูแลระบบ"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role==1"
-                  >ผู้ดูแลระบบ</label
-                >
-                <label
-                  class="btn btn-primary"
-                  name="role"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.role"
-                  btnRadio="ผู้ดูแลสาขา"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role!=3"
-                  >ผู้ดูแลสาขา</label
-                >
-                <label
-                  class="btn btn-primary"
-                  name="role"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.role"
-                  btnRadio="พนักงาน"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role!=3"
-                  >พนักงาน</label
-                >
+                <label class="btn btn-primary" name="role" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.role" btnRadio="ผู้ดูแลระบบ" tabindex="0" role="button"
+                  *ngIf="UserLogin.role==1">ผู้ดูแลระบบ</label>
+                <label class="btn btn-primary" name="role" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.role" btnRadio="ผู้ดูแลสาขา" tabindex="0" role="button"
+                  *ngIf="UserLogin.role!=3">ผู้ดูแลสาขา</label>
+                <label class="btn btn-primary" name="role" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.role" btnRadio="พนักงาน" tabindex="0" role="button"
+                  *ngIf="UserLogin.role!=3">พนักงาน</label>
               </div>
             </div>
             <div class="col-md-6">
@@ -93,56 +54,24 @@
                 บริษัท : <span class="text-primary">{{ IMember.company }}</span>
               </p>
               <div class="btn-group">
-                <label
-                  class="btn btn-primary"
-                  name="company"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.company"
-                  btnRadio="ดีจัง"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role==1 || UserLogin.company==1"
-                  >ดีจัง</label
-                >
-                <label
-                  class="btn btn-primary"
-                  name="company"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.company"
-                  btnRadio="ดีจ้า"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role==1 || UserLogin.company==2"
-                  >ดีจ้า</label
-                >
-                <label
-                  class="btn btn-primary"
-                  name="company"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.company"
-                  btnRadio="ดีจ้าออโต้"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role==1 || UserLogin.company==3"
-                  >ดีจ้าออโต้</label
-                >
-                <label
-                  class="btn btn-primary"
-                  name="company"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="IMember.company"
-                  btnRadio="ดีจังหนองจอก"
-                  tabindex="0"
-                  role="button"
-                  *ngIf="UserLogin.role==1 || UserLogin.company==4"
-                  >ดีจังหนองจอก</label
-                >
+                <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.company" btnRadio="ดีจัง" tabindex="0" role="button"
+                  *ngIf="UserLogin.role==1 || UserLogin.company==1">ดีจัง</label>
+                <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.company" btnRadio="ดีจ้า" tabindex="0" role="button"
+                  *ngIf="UserLogin.role==1 || UserLogin.company==2">ดีจ้า</label>
+                <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.company" btnRadio="ดีจังหนองจอก" tabindex="0" role="button"
+                  *ngIf="(UserLogin.role==1 || UserLogin.company==3) && number_company>2">ดีจังหนองจอก</label>
+                <!-- <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.company" btnRadio="ดีจ้าออโต้" tabindex="0" role="button"
+                  *ngIf="UserLogin.role==1 || UserLogin.company==4">ดีจ้าออโต้</label> -->
               </div>
             </div>
           </div>
         </div>
         <div class="mb-4">
-            <!-- ถ้าจะเพิ่มพนักงาน -->
+          <!-- ถ้าจะเพิ่มพนักงาน -->
           <button *ngIf="!IMember._id" class="btn btn-success btn-block" (click)="onSubmit()">
             เพิ่มพนักงาน
           </button>
@@ -188,10 +117,12 @@
               <td style="vertical-align: middle;" class="block">{{ i + 1 }}</td>
               <td style="vertical-align: middle;" class="block">{{ data.name }}</td>
               <td style="vertical-align: middle;" class="block">
-                <span class="badge badge-pill block" [ngClass]="data.role==1?'badge-primary':data.role==2?'badge-success':'badge-dark'" *ngIf="data.role==1?'ผู้ดูแลระบบ':'ผู้ดูแลสาขา'">
-                    <span *ngIf="data.role==1">ผู้ดูแลระบบ</span>
-                    <span *ngIf="data.role==2">ผู้ดูแลสาขา</span>
-                    <span *ngIf="data.role==3">พนักงานทั่วไป</span>
+                <span class="badge badge-pill block"
+                  [ngClass]="data.role==1?'badge-primary':data.role==2?'badge-success':'badge-dark'"
+                  *ngIf="data.role==1?'ผู้ดูแลระบบ':'ผู้ดูแลสาขา'">
+                  <span *ngIf="data.role==1">ผู้ดูแลระบบ</span>
+                  <span *ngIf="data.role==2">ผู้ดูแลสาขา</span>
+                  <span *ngIf="data.role==3">พนักงานทั่วไป</span>
                 </span>
               </td>
               <td style="vertical-align: middle;" class="block">{{ data.company }}</td>
@@ -200,7 +131,7 @@
               </td>
               <td style="vertical-align: middle;" class="text-success block">
                 {{ data.updated | date:'dd-MM-yyyy' }}
-                
+
               </td>
               <td style="vertical-align: middle;" class="block">
                 <!-- <button class="btn btn-primary mr-2" tooltip="ดูข้อมูล">
@@ -209,26 +140,15 @@
                 <button class="btn btn-warning mr-2" (click)="onLoadUpdate(data)" tooltip="แก้ไข">
                   <i class="fa fa-pencil"></i>
                 </button>
-                <button
-                  class="btn btn-danger"
-                  (click)="onDeleteMember(data._id)"
-                  tooltip="ลบข้อมูล"
-                >
+                <button class="btn btn-danger" (click)="onDeleteMember(data._id)" tooltip="ลบข้อมูล">
                   <i class="fa fa-trash"></i>
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
-        <pagination
-          (pageChanged)="pageChanged($event)"
-          [totalItems]="total_items"
-          *ngIf="items"
-          [itemsPerPage]="option.lp"
-          directionLink="true"
-          previousText="ก่อนหน้า"
-          nextText="ถัดไป"
-        ></pagination>
+        <pagination (pageChanged)="pageChanged($event)" [totalItems]="total_items" *ngIf="items"
+          [itemsPerPage]="option.lp" directionLink="true" previousText="ก่อนหน้า" nextText="ถัดไป"></pagination>
       </div>
     </div>
   </div>
