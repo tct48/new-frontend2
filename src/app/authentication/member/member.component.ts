@@ -79,7 +79,11 @@ export class MemberComponent implements OnInit {
       obj.company = 3;
     }else if(this.IMember.company=="ดีจังหนองจอก"){
       obj.company = 4;
+    }else if(this.IMember.company=="ดีจังเลียบด่วน"){
+      obj.company = 5;
     }
+
+
     if(!obj.username || !obj.password || !obj.name || !obj.role || !obj.company){
       return this.alert.notify("กรุณากรอกข้อมูลให้ครบถ้วน!")
     }

@@ -28,6 +28,10 @@
         class="btn btn-outline-primary mx-2">
         ดีจังหนองจอก
       </button>
+      <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==3" (click)="onChangeCompany('ดีจังหนองจอก',5)"
+        class="btn btn-outline-primary mx-2">
+        ดีจังเลียบด่วน
+      </button>
       <!-- <button type="button" *ngIf="UserLogin.role==1 || UserLogin.company==3" (click)="onChangeCompany('ดีจังออโต้',3)" class="btn btn-outline-primary mr-2">
         ดีจ้าออโต้
       </button>

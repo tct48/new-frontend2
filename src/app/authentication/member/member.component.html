@@ -62,7 +62,10 @@
                   *ngIf="UserLogin.role==1 || UserLogin.company==2">ดีจ้า</label>
                 <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
                   [(ngModel)]="IMember.company" btnRadio="ดีจังหนองจอก" tabindex="0" role="button"
-                  *ngIf="(UserLogin.role==1 || UserLogin.company==3) && number_company>2">ดีจังหนองจอก</label>
+                  *ngIf="(UserLogin.role==1 || UserLogin.company==4) && number_company>2">ดีจังหนองจอก</label>
+                <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="IMember.company" btnRadio="ดีจังเลียบด่วน" tabindex="0" role="button"
+                  *ngIf="(UserLogin.role==1 || UserLogin.company==5) && number_company>2">ดีจังเลียบด่วน</label>
                 <!-- <label class="btn btn-primary" name="company" [ngModelOptions]="{ standalone: true }"
                   [(ngModel)]="IMember.company" btnRadio="ดีจ้าออโต้" tabindex="0" role="button"
                   *ngIf="UserLogin.role==1 || UserLogin.company==4">ดีจ้าออโต้</label> -->

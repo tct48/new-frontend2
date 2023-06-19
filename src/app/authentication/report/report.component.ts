@@ -71,7 +71,21 @@ export class ReportComponent implements OnInit {
   }
 
   loadItems() {
-    this.receipt.loadDaily().then(result => {
+    var company = this.UserLogin.company;
+    var dt:Date = new Date();
+
+    var date = dt.getDate();
+    var month = dt.getMonth() + 1;
+    var year = dt.getFullYear();
+
+    var model = {
+      filter : company,
+      date : date,
+      month : month,
+      year : year
+    }
+
+    this.receipt.loadDaily(model).then(result => {
       this.total_price = 0;
       this.total_items = result.total_items;
       this.items = result.items;

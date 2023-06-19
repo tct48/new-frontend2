@@ -412,6 +412,8 @@ export class BillComponent implements OnInit {
       return "ดีจ้าออโต้"
     } else if (_id == 4) {
       return "ดีจังหนองจอก"
+    } else if (_id == 5) {
+      return "ดีจังเลียบด่วน"
     }
   }
 
@@ -470,6 +472,10 @@ export class BillComponent implements OnInit {
       this.header_company.name = "ดีจังหนองจอก"
       this.header_company.address = "1626/28 se 3 ct Deerfeld Beach, Fl, 33441"
       this.header_company.telephone = "091-115-7859"
+    } else if (_id == 4) {
+      this.header_company.name = "ดีจังเลียบด่วน"
+      this.header_company.address = "12/2 หมู่ที่ 5 ต.คลองสี่ อ.คลองหลวง จ.ปทุมธานี 12120"
+      this.header_company.telephone = "โทร. 062-939-4666, 099-391-9226"
     }
   }
   // ทำ export document to pdf
