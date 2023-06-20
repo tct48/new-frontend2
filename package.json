@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && ng build --prod --base-href http://www.dee-jung.com/ --deploy-url http://www.dee-jung.com/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
